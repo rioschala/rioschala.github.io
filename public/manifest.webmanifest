@@ -1,7 +1,7 @@
 {
-	"name": "Astro Theme Cactus Demo",
-	"short_name": "Astro_Cactus",
-	"description": "Starter blog site for Astro",
+	"name": "Blog Sergio Rios Computer Science",
+	"short_name": "Blog_SR",
+	"description": "Blog of Computer Science 0478 by Sergio Rios",
 	"icons": [
 		{
 			"src": "/192x192.png",
