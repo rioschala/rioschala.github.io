@@ -5,7 +5,7 @@ export const siteConfig: SiteConfig = {
 	// Used as both a meta property (src/components/BaseHead.astro L:31 + L:49) & the generated satori png (src/pages/og-image/[slug].png.ts)
 	author: "Sergio Rios",
 	// Meta property used to construct the meta title property, found in src/components/BaseHead.astro L:11
-	title: "Computer Science Blog IB/IGCSE",
+	title: "Computer Science blog",
 	// Meta property used as the default description meta property
 	description: "A blog for creating, learning and discovering",
 	// HTML lang property, found in src/layouts/Base.astro L:18
@@ -21,11 +21,11 @@ export const siteConfig: SiteConfig = {
 			year: "numeric",
 		},
 	},
-	//webmentions: {
+	webmentions: {
 		// Webmention.io API endpoint. Get your own here: https://webmention.io/, and follow this blog post: https://astro-cactus.chriswilliams.dev/posts/webmentions/
-		//link: "https://webmention.io/astro-cactus.chriswilliams.dev/webmention",
-	}
-
+		link: "https://webmention.io/astro-cactus.chriswilliams.dev/webmention",
+	},
+};
 
 // Used to generate links in both the Header & Footer.
 export const menuLinks: Array<{ title: string; path: string }> = [
@@ -41,9 +41,6 @@ export const menuLinks: Array<{ title: string; path: string }> = [
 		title: "Blog",
 		path: "/posts/",
 	},
-	{
-		title: "CV", path : "/cv/"
-	}
 ];
 
 // https://expressive-code.com/reference/configuration/
