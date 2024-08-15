@@ -41,29 +41,6 @@ Astro Cactus is a simple opinionated starter built with the Astro framework. Use
 - [Astro Icon](https://github.com/natemoo-re/astro-icon) svg icon component
 - [Expressive Code](https://expressive-code.com/) source code and syntax highlighter
 
-## Demo 💻
-
-Check out the [Demo](https://astro-cactus.chriswilliams.dev/), hosted on Netlify
-
-## Quick start
-
-[Create a new repo](https://github.com/chrismwilliams/astro-theme-cactus/generate) from this template.
-
-```bash
-# npm 7+
-npm create astro@latest -- --template chrismwilliams/astro-theme-cactus
-
-# pnpm
-pnpm dlx create-astro --template chrismwilliams/astro-theme-cactus
-```
-
-[![Deploy with Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/chrismwilliams/astro-theme-cactus) [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fchrismwilliams%2Fastro-theme-cactus&project-name=astro-theme-cactus)
-
-## Preview
-
-![Astro Theme Cactus in a light theme mode](https://github.com/chrismwilliams/astro-theme-cactus/assets/12715988/84c89d42-4525-4674-b10c-6d6ebdc06382)
-
-![Astro Theme Cactus in a dark theme mode](https://github.com/chrismwilliams/astro-theme-cactus/assets/12715988/e0e575e2-445f-4c2d-a812-b5b53d2d9031)
 
 ## Commands
 
