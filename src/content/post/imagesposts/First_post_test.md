@@ -18,3 +18,4 @@ Using ´#´ helps the system to identify differente levels of headings.
 ### New aplications
 
 If everything is working propperly, an image will appear on the next line:
+![Blog's image cover](src/content/post/imagesposts/imagetest1.png "Blog's image cover")
