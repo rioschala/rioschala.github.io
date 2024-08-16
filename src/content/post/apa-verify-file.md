@@ -1,0 +1,34 @@
+---
+title: "APA Ed. 7 Verification List"
+description: 'Formatting your document to a pre-defined style helps with the overall structure of your Extended Essay and your research process.'
+publishDate: 16 August 2024
+tags: ["EE", "IB"]
+draft: false
+---
+# Why Using APA or IEEE Style Format?
+
+During the creation of your extended essay, it's essential that you submit and create a clear and up-to-date reseach project. This cannot be only done by researching or developing your topics.
+
+Instead, it is fundamental that we get to follow a pre-defined set of rules that affect your final version of the document. This parameters must be adjusted, specially, for a **better readability** and a **better structure**.
+
+<img src="https://mms.businesswire.com/media/20231009342002/en/1910680/22/APA-Logo-2019-Stacked-CMYK-Black.jpg" alt="APA logo" style="border-radius: 5%; display: block; margin: 0 auto;">
+
+In the next sections, you will find a series of tasks that you must perform on your document so that it gets adjusted to APA[^1] 7th edition. **Tick** the box if you followed the suggestion (Doing so leads to a better EE).
+
+>[!TIP]
+> These are only suggestions. You can follow other formatting styles.
+
+<details>
+<summary>  Overall format  </summary>
+
+- [ ] Add a margin of 2.54cm in each side of the page.
+
+- [ ] Add the number page in the top-right corner of the document.
+
+- [ ] Set the font size to 12 points and Sans Serif type.
+
+- [ ] Set the spacing to 2.0cm per line.
+
+</details>
+
+[^1]: American Psychology Association
