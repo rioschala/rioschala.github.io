@@ -15,7 +15,7 @@ Instead, it is fundamental that we get to follow a pre-defined set of rules that
 
 In the next sections, you will find a series of tasks that you must perform on your document so that it gets adjusted to APA[^1] 7th edition. **Tick** the box if you followed the suggestion (Doing so leads to a better EE).
 
->[!TIP]
+>[:warning: TIP]
 > These are only suggestions. You can follow other formatting styles.
 
 <details>
