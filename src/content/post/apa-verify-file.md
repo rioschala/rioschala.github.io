@@ -21,13 +21,13 @@ In the next sections, you will find a series of tasks that you must perform on y
 <details>
 <summary>  Overall format  </summary>
 
-- [ ] Add a margin of 2.54cm in each side of the page.
+[ ] Add a margin of 2.54cm in each side of the page.
 
-- [ ] Add the number page in the top-right corner of the document.
+[ ] Add the number page in the top-right corner of the document.
 
-- [ ] Set the font size to 12 points and Sans Serif type.
+[ ] Set the font size to 12 points and Sans Serif type.
 
-- [ ] Set the spacing to 2.0cm per line.
+[ ] Set the spacing to 2.0cm per line.
 
 </details>
 
