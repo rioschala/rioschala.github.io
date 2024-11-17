@@ -8,13 +8,13 @@ draft: false
 ogImage: public/social-card.png
 
 ---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 In this one, multiple differences in the main structures will be specified for educational purposes. Each structure will present JAVA, PYTHON and PSEUDOCODE syntax that allows to determine the essential differences. Remember that the most important element in coding has to do with learning the concepts rather than the structure since it's widely applied to all main programming languages.
 
-
-
-### Python
-Python offers a simple syntax where a variable can store a value directly from an input and the declaration of the variable can happen in the same line where it's assigned a value. To achieve so, you need to use the command ```input```. This function receives by default a string type. Hence, that's why there is no need to add ```str``` before it. For the other data types, it's mandatory to use the corresponding function to convert them.
+<Tabs>
+  <TabItem label="Python" icon="seti:python">
+    Python offers a simple syntax where a variable can store a value directly from an input and the declaration of the variable can happen in the same line where it's assigned a value. To achieve so, you need to use the command ```input```. This function receives by default a string type. Hence, that's why there is no need to add ```str``` before it. For the other data types, it's mandatory to use the corresponding function to convert them.
 
 Use ```int``` for converting strings to integers and ```float``` to convert them to real numbers.
 
@@ -30,9 +30,9 @@ print("This is a test that outputs the values of the variables", var_name, num_n
 
 ```
 
-### Java
-
-Whent it comes to Java, it's essential to note that this programming language uses multiple modules and built-in classes to achieve different taks. In this case,the ```Scanner``` from ```Util``` that contains many utilities for the language is imported into the ```main``` class.
+  </TabItem>
+  <TabItem label="Java" icon="seti:java">
+    When it comes to Java, it's essential to note that this programming language uses multiple modules and built-in classes to achieve different taks. In this case,the ```Scanner``` from ```Util``` that contains many utilities for the language is imported into the ```main``` class.
 
 Java uses a declaration that may be in a single line or in multiple as needed. To do so, you need to specify the data type, then the variable's indetifier and the assigned value. However, it can be also created first the declaration process by data type and name that can be called lines later.
 
@@ -60,10 +60,9 @@ public class InputExample {
     }
 }
 ```
-
-### Pseudocode
-
-Pseudocode, in any of their IB or IGCSE variations, follow a Java-like structure. It's relevant to note that any KEYWORD should be capitalized accrodingly. For the variable naming process, we shall follow a structure where the first letter of the second word shall be capitalized (i.e. **nameVariable**). Additionally, we use a output first then input later structure that ensures that, as in Java, the message uses a different line than the input assignation process.
+  </TabItem>
+  <TabItem label="Pseudo" icon="seti:svg">
+    Pseudocode, in any of their IB or IGCSE variations, follow a Java-like structure. It's relevant to note that any KEYWORD should be capitalized accrodingly. For the variable naming process, we shall follow a structure where the first letter of the second word shall be capitalized (i.e. **nameVariable**). Additionally, we use a output first then input later structure that ensures that, as in Java, the message uses a different line than the input assignation process.
 
 ```python title ="Pseudocode" wrap
 DECLARE varName STRING
@@ -79,3 +78,9 @@ INPUT realName
 
 OUTPUT "This is a test that outputs the values of the variables: " + varName + ", " + numName + ", " + realName
 ```
+
+  </TabItem>
+</Tabs>
+
+
+
