@@ -8,70 +8,66 @@ import { defineConfig } from "astro/config";
 import { expressiveCodeOptions } from "./src/site.config";
 
 // Remark plugins
-import remarkDirective from "remark-directive"; /* Handle ::: directives as nodes */
+import remarkDirective from "remark-directive";/* Handle ::: directives as nodes */
 import remarkUnwrapImages from "remark-unwrap-images";
-import { remarkAdmonitions } from "./src/utils/remark-admonitions"; /* Add admonitions */
+import { remarkAdmonitions } from "./src/utils/remark-admonitions";/* Add admonitions */
 import { remarkReadingTime } from "./src/utils/remark-reading-time";
 
 // Rehype plugins
 import rehypeExternalLinks from "rehype-external-links";
 
+import react from "@astrojs/react";
+
 // https://astro.build/config
 export default defineConfig({
-	image: {
-		domains: ["webmention.io"],
-	},
-	integrations: [
-		expressiveCode(expressiveCodeOptions),
-		icon(),
-		tailwind({
-			applyBaseStyles: false,
-			nesting: true,
-		}),
-		sitemap(),
-		mdx(),
-	],
-	markdown: {
-		rehypePlugins: [
-			[
-				rehypeExternalLinks,
-				{
-					rel: ["nofollow, noreferrer"],
-					target: "_blank",
-				},
-			],
-		],
-		remarkPlugins: [remarkUnwrapImages, remarkReadingTime, remarkDirective, remarkAdmonitions],
-		remarkRehype: {
-			footnoteLabelProperties: {
-				className: [""],
-			},
-		},
-	},
-	// https://docs.astro.build/en/guides/prefetch/
-	prefetch: true,
-	// ! Please remember to replace the following site property with your own domain
-	site: "https://sergiorios.lat/",
-	vite: {
-		optimizeDeps: {
-			exclude: ["@resvg/resvg-js"],
-		},
-		plugins: [rawFonts([".ttf", ".woff"])],
-	},
+    image: {
+        domains: ["webmention.io"],
+    },
+    integrations: [expressiveCode(expressiveCodeOptions), icon(), tailwind({
+        applyBaseStyles: false,
+        nesting: true,
+		}), sitemap(), mdx(), react()],
+    markdown: {
+        rehypePlugins: [
+            [
+                rehypeExternalLinks,
+                {
+                    rel: ["nofollow, noreferrer"],
+                    target: "_blank",
+                },
+            ],
+        ],
+        remarkPlugins: [remarkUnwrapImages, remarkReadingTime, remarkDirective, remarkAdmonitions],
+        remarkRehype: {
+            footnoteLabelProperties: {
+                className: [""],
+            },
+        },
+    },
+    // https://docs.astro.build/en/guides/prefetch/
+    prefetch: true,
+    // ! Please remember to replace the following site property with your own domain
+    site: "https://sergiorios.lat/",
+    vite: {
+        optimizeDeps: {
+            exclude: ["@resvg/resvg-js"],
+        },
+        plugins: [rawFonts([".ttf", ".woff"])],
+    },
 });
 
 function rawFonts(ext: string[]) {
-	return {
-		name: "vite-plugin-raw-fonts",
-		// @ts-expect-error:next-line
-		transform(_, id) {
-			if (ext.some((e) => id.endsWith(e))) {
-				const buffer = fs.readFileSync(id);
-				return {
-					code: `export default ${JSON.stringify(buffer)}`,
-					map: null,
-				};
-			}
-		},
-	};
+    return {
+        name: "vite-plugin-raw-fonts",
+        // @ts-expect-error:next-line
+        transform(_, id) {
+            if (ext.some((e) => id.endsWith(e))) {
+                const buffer = fs.readFileSync(id);
+                return {
+                    code: `export default ${JSON.stringify(buffer)}`,
+                    map: null,
+                };
+            }
+        },
+    };
 }
