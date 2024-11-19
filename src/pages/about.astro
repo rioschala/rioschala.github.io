@@ -2,6 +2,8 @@
 import aboutImg from "@/assets/about-astro.png";
 import PageLayout from "@/layouts/Base.astro";
 import { Image } from "astro:assets";
+import TldrawComponent from '../components/TldrawComponent.jsx';
+
 
 const meta = {
 	description: "Who am I? Let's discover it.",
@@ -15,6 +17,8 @@ const meta = {
 		<p>
 			Welcome to this blog where I post tools and thoughts. You can feel free to explore my posts and to develop from there. This is, moreover, an adventure of mine when it comes to learning. I need to show and organize different ideas from multiple disciplines. I created this blog using 🌵 Cactus Astro.  
 		</p>
+		<p></p>
+		<TldrawComponent client:load />
 		<div class="flex justify-center">
 			<Image
 				alt="A cartoon cactus looking at the 'Astro.build' logo"
