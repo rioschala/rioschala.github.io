@@ -5,6 +5,7 @@ publishDate: "11 Oct 2023"
 tags: []
 updatedDate: 8 April 2024
 draft: true
+ogImage: public/social-card.png
 ---
 
 ## TLDR
