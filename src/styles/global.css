@@ -39,7 +39,8 @@
 	  }
 
 	body {
-		@apply mx-auto flex min-h-screen max-w-4xl flex-col bg-bgColor px-10 pt-20 text-sm font-normal text-textColor antialiased;
+		@apply mx-auto flex min-h-screen max-w-4xl flex-col bg-bgColor px-10 pt-10 text-sm font-normal text-textColor antialiased;
+	
 	}
 
 	@keyframes rainbow {
