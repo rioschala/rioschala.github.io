@@ -1,0 +1,16 @@
+---
+import PageLayout from "@/layouts/Base.astro";
+import TldrawComponent from '../components/TldrawComponent.jsx';
+
+
+const meta = {
+	description: "Tool to draw and keep information in a more organized fashion",
+	title: "Draw",
+};
+---
+
+<PageLayout meta={meta}>
+	<div class="space-y-6">
+		<TldrawComponent client:load />
+	</div>
+</PageLayout>

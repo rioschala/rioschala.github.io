@@ -20,17 +20,26 @@
 		--theme-bg: 210deg 6% 12%;
 		--theme-link: 330deg 49% 67%;
 		--theme-text: 220deg 3% 79%;
-		--theme-accent: 159deg 64% 45%;
+		--theme-accent: 189deg 76% 64%;
 		--theme-accent-2: 0deg 0% 93%;
 		--theme-quote: 102deg 100% 86%;
 	}
+	body code {
+		background-color: rgba(173, 225, 235, 0.333);
+		font-family:  monospace;
+		color: #002c19;
+		padding: 2px 4px;
+	  }
 
 	html {
 		@apply scroll-smooth;
 	}
+	html {
+		font-size: 25px; /* or any size you prefer */
+	  }
 
 	body {
-		@apply mx-auto flex min-h-screen max-w-4xl flex-col bg-bgColor px-10 pt-20 font-mono text-sm font-normal text-textColor antialiased;
+		@apply mx-auto flex min-h-screen max-w-4xl flex-col bg-bgColor px-10 pt-20 text-sm font-normal text-textColor antialiased;
 	}
 
 	@keyframes rainbow {
