@@ -52,6 +52,7 @@ export default {
 			transitionProperty: {
 				height: "height",
 			},
+			
 			// @ts-expect-error
 			// Remove above once tailwindcss exposes theme type
 			typography: (theme) => ({
@@ -64,7 +65,7 @@ export default {
 							borderLeftWidth: "0",
 						},
 						code: {
-							border: "1px dotted #666",
+							border: "1px solid #666",
 							borderRadius: "2px",
 						},
 						kbd: {
