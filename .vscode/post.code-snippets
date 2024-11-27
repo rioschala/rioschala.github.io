@@ -21,6 +21,7 @@
 		"body": [
 			"---",
 			"title: ${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}",
+			"slug: ${TM_FILENAME_BASE/(.*)/${1:/downcase}/}",
 			"description: 'Please enter a description of your post here, between 50-160 chars!'",
 			"publishDate: $CURRENT_DATE $CURRENT_MONTH_NAME $CURRENT_YEAR",
 			"tags: []",
