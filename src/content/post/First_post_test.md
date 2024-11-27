@@ -3,7 +3,7 @@ title: "First post testing the blog"
 publishDate: "8 August 2024"
 description: "Creation of tags and first post on the blog. This breaks when less than 50 chars exist."
 tags: ["IB", "IGCSE", "Paper 1 IGCSE", "Paper 2 IGCSE", "SL", "HL", "Paper 1 IB", "Paper 2 IB", "Paper 3 IB", "Option A IB", "Option B IB", "Option C IB", "Option D IB", "EE", "IA", "Tools", "Resources", "Materials"]
-ogImage: public/social-card.png
+ogImage: "public/social-card.png"
 ---
 
 # This is the **title**

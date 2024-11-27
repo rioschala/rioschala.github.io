@@ -4,7 +4,7 @@ description: 'How to use admonitions in a MarkDown file to improve readability f
 publishDate: 14 November 2024
 tags: []
 draft: false
-ogImage: public/social-card.png
+ogImage: "/social-card.png"
 ---
 
 # What are those

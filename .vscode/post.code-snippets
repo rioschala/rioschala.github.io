@@ -25,7 +25,7 @@
 			"publishDate: $CURRENT_DATE $CURRENT_MONTH_NAME $CURRENT_YEAR",
 			"tags: []",
 			"draft: false",
-			"ogImage: public/social-card.png"
+			"ogImage: \"/social-card.png\"",
 			"---",
 			"$2",
 		],
