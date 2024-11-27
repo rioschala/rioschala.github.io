@@ -5,7 +5,7 @@ publishDate: "22 Feb 2023"
 updatedDate: 22 Jan 2024
 tags: []
 draft: true
-ogImage: public/social-card.png
+ogImage: "public/social-card.png"
 ---
 
 ## This is a H2 Heading
