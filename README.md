@@ -1,46 +1,4 @@
-<div align="center">
-  <img alt="Astro Cactus logo" src="https://github.com/chrismwilliams/astro-theme-cactus/assets/12715988/85aa0d3c-ef6a-44e2-954d-ef035b4f4315" width="70" />
-</div>
-<h1 align="center">
-  Astro Cactus
-</h1>
-
-Astro Cactus is a simple opinionated starter built with the Astro framework. Use it to create an easy-to-use blog or website.
-
-## Table Of Contents
-
-1. [Key Features](#key-features)
-2. [Demo](#demo-💻)
-3. [Quick start](#quick-start)
-4. [Preview](#preview)
-5. [Commands](#commands)
-6. [Configure](#configure)
-7. [Adding Posts](#adding-posts)
-   - [Frontmatter](#frontmatter)
-   - [Frontmatter Snippet](#frontmatter-snippet)
-8. [Pagefind search](#pagefind-search)
-9. [Analytics](#analytics)
-10. [Deploy](#deploy)
-11. [Acknowledgment](#acknowledgment)
-
-## Key Features
-
-- Astro v4 Fast 🚀
-- TailwindCSS Utility classes
-- Accessible, semantic HTML markup
-- Responsive & SEO-friendly
-- Dark / Light mode, using Tailwind and CSS variables
-- [Astro Assets Integration](https://docs.astro.build/en/guides/assets/) for optimised images
-- MD & [MDX](https://docs.astro.build/en/guides/markdown-content/#mdx-only-features) posts
-- [Satori](https://github.com/vercel/satori) for creating open graph png images
-- Pagination
-- [Automatic RSS feed](https://docs.astro.build/en/guides/rss)
-- [Webmentions](https://webmention.io/)
-- Auto-generated [sitemap](https://docs.astro.build/en/guides/integrations-guide/sitemap/)
-- [Pagefind](https://pagefind.app/) static search library integration
-- [Astro Icon](https://github.com/natemoo-re/astro-icon) svg icon component
-- [Expressive Code](https://expressive-code.com/) source code and syntax highlighter
-
+# Astro Cactus is a simple opinionated starter built with the Astro framework. Use it to create an easy-to-use blog or website
 
 ## Commands
 
@@ -117,16 +75,6 @@ You may want to track the number of visitors you receive to your blog/website in
 This theme/template doesn't include a specific solution due to there being a number of use cases and/or options which some people may or may not use.
 
 You may be asked to included a snippet inside the **HEAD** tag of your website when setting it up, which can be found in `src/layouts/Base.astro`. Alternatively, you could add the snippet in `src/components/BaseHead.astro`.
-
-## Deploy
-
-[Astro docs](https://docs.astro.build/en/guides/deploy/) has a great section and breakdown of how to deploy your own Astro site on various platforms and their idiosyncrasies.
-
-By default the site will be built (see [Commands](#commands) section above) to a `/dist` directory.
-
-## Acknowledgment
-
-This theme was inspired by [Hexo Theme Cactus](https://github.com/probberechts/hexo-theme-cactus)
 
 ## License
 
