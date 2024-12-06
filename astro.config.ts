@@ -53,6 +53,16 @@ export default defineConfig({
             exclude: ["@resvg/resvg-js"],
         },
         plugins: [rawFonts([".ttf", ".woff"])],
+        build: {
+            rollupOptions: {
+                output: {
+                    manualChunks: {
+                        'tldraw-chunk': ['tldraw']
+                    }
+                }
+            },
+            chunkSizeWarningLimit: 3000
+        }
     },
 });
 
