@@ -54,7 +54,7 @@ export default defineConfig({
         },
         plugins: [rawFonts([".ttf", ".woff"])],
         server: {
-            watch: {ignored:  ['node_modules/@iconify-json/**']},},
+            watch: {ignored:  ['node_modules/@iconify-json/**', '**/icons/**']},},
         build: {
             rollupOptions: {
                 output: {
