@@ -65,8 +65,10 @@ export default {
 							borderLeftWidth: "0",
 						},
 						code: {
+							"@apply dark:bg-gray-800 dark:text-gray-200 px-1 py-0.5 text-sm font-mono bg-gray-100 rounded": "",
 							border: "1px solid #666",
-							borderRadius: "2px",
+							borderRadius: "4px",
+							color: theme("colors.textColor"),
 						},
 						kbd: {
 							"@apply dark:bg-textColor": "",
@@ -201,6 +203,12 @@ export default {
 						code: {
 							fontSize: theme("fontSize.sm")[0],
 							fontWeight: "400",
+						},
+						'code::before': {
+							content: '""',
+						},
+						'code::after': {
+							content: '""',
 						},
 					},
 				},
