@@ -17,6 +17,8 @@ Always use them.
 
 Admonitions (also known as “asides”) are useful for providing supportive and/or supplementary information related to your content.
 
+For example, lest test some tags <kbd>Esc</kbd>
+
 ## How to use them
 
 To use admonitions in Astro Cactus, wrap your Markdown content in a pair of triple colons `:::`. The first pair should also include the type of admonition you want to use.

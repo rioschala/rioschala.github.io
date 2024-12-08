@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://blogsergio.netlify.app/sitemap-index.xml
+Sitemap: https://sergiorios.lat/sitemap-0.xml
