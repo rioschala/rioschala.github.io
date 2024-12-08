@@ -2,9 +2,8 @@
 title: "A post of Markdown elements"
 description: "This post is for testing and listing a number of different markdown elements"
 publishDate: "22 Feb 2023"
-updatedDate: 22 Jan 2024
 tags: []
-draft: true
+draft: false
 ogImage: "public/social-card.png"
 ---
 
@@ -151,16 +150,6 @@ Right aligned columns
 |   data | path to data files to supply the data that will be passed into templates. |
 | engine |    engine to be used for processing templates. Handlebars is the default. |
 |    ext |                                      extension to be used for dest files. |
-
-## Images
-
-Image in the same folder: `src/content/post/markdown-elements/logo.png`
-
-![Astro theme cactus logo](./logo.png)
-
-Image in the aliased assets folder: `src/assets/about-astro.png`
-
-![A cartoon cactus looking at the Astro.build logo](@/assets/about-astro.png)
 
 ## Links
 

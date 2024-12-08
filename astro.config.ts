@@ -53,6 +53,8 @@ export default defineConfig({
             exclude: ["@resvg/resvg-js"],
         },
         plugins: [rawFonts([".ttf", ".woff"])],
+        server: {
+            watch: {ignored:  ['node_modules/@iconify-json/**']},},
         build: {
             rollupOptions: {
                 output: {
