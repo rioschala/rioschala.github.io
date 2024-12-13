@@ -1,0 +1,57 @@
+---
+title: (Failed) Installation of Linux Arch on VirtualBox
+slug: archlinuxinstall
+description: 'Process of creating a Virtual Marchine using VirtualBox and Linux Arch'
+publishDate: 13 December 2024
+tags: ["Testing"]
+draft: false
+ogImage: "/social-card.png"
+---
+
+
+
+:::caution
+This blog entry is incomplete. Further details will be added in subsequent attempts. 
+:::
+
+When installing a new OS, it is relevant to consider all the little details and the fine print it comes with. That is why I will try to install Arc Linux, as an attempt to learn more about Linux (distros) and commands. I will be documenting all the commands used into the terminal. Plus, I will add if possible all pictures and elements this post needs. 
+
+I followed this tutorial, but I will provide information on what the commands do ([Watch here](https://www.youtube.com/watch?v=naVqseLsGqM)). I did also followed the official guide to install: [archlinux Guide](https://wiki.archlinux.org/title/Installation_guide)  
+
+First, create the virtual machine:
+
+![1](https://pub-18229f9d31f241a4b80d8d8a9c50ec52.r2.dev/Screenshot2024-12-12085103.png) 
+![2](https://pub-18229f9d31f241a4b80d8d8a9c50ec52.r2.dev/Screenshot2024-12-12085109.png) 
+![3](https://pub-18229f9d31f241a4b80d8d8a9c50ec52.r2.dev/Screenshot2024-12-12085113.png) 
+![4](https://pub-18229f9d31f241a4b80d8d8a9c50ec52.r2.dev/Screenshot2024-12-12085345.png) 
+![5](https://pub-18229f9d31f241a4b80d8d8a9c50ec52.r2.dev/Screenshot2024-12-12085350.png) 
+![6](https://pub-18229f9d31f241a4b80d8d8a9c50ec52.r2.dev/Screenshot2024-12-12085408.png) 
+
+The first Element I encountered is that the time and date were out of sync in the system (remember everything is being done on a virtual machine). After some research, I found out that it is not essential to run that command in the first place since it can be achieved later on. [^1]
+
+![7](https://pub-18229f9d31f241a4b80d8d8a9c50ec52.r2.dev/Screenshot2024-12-12085735.png)
+![8](https://pub-18229f9d31f241a4b80d8d8a9c50ec52.r2.dev/Screenshot2024-12-12085812.png)
+
+Once keyboard layout was configured using ```loadkeys es``` and we were able to connect to the internet, it's time to start installing some packages that will be used later on in the system. 
+
+![9](https://pub-18229f9d31f241a4b80d8d8a9c50ec52.r2.dev/Screenshot2024-12-12091027.png)
+
+Once a connection to the internet is stablished, now ```timedatecrtl``` provides a synced device result. 
+
+![10](https://pub-18229f9d31f241a4b80d8d8a9c50ec52.r2.dev/Screenshot2024-12-12091532.png)
+
+After multiple commands (see pictures), I was not able to properly install Arch, it constantly kept showing error messages and booting into the **.ISO**
+
+![11](https://pub-18229f9d31f241a4b80d8d8a9c50ec52.r2.dev/Screenshot2024-12-12092830.png)
+![12](https://pub-18229f9d31f241a4b80d8d8a9c50ec52.r2.dev/Screenshot2024-12-12092223.png)
+![13](https://pub-18229f9d31f241a4b80d8d8a9c50ec52.r2.dev/Screenshot2024-12-12093636.png)
+
+At the very end, I decided to use ```archinstall``` command following the next code:
+
+
+> execute ```pacman -Sy archinstall``` (per the developer), to get the latest and most bug free release; then execute ```archinstall```.
+
+
+
+[^1]: https://www.reddit.com/r/archlinux/comments/1dmoo1f/timedatectl/
+
