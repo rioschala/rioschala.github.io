@@ -3,7 +3,7 @@ title: Admonitions
 description: 'How to use admonitions in a MarkDown file to improve readability from the users'
 publishDate: 14 November 2024
 updatedDate: 8 December 2024
-tags: []
+tags: ["Blog"]
 draft: false
 ogImage: "/social-card.png"
 ---
