@@ -2,7 +2,7 @@
 title: New-default-ogImage
 description: 'By modifying the frontmatter snippet, we can persistently use the social-card as the ogImage for all posts'
 publishDate: 16 August 2024
-tags: []
+tags: ["Blog"]
 draft: false
 ogImage: "public/social-card.png"
 ---
