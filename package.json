@@ -17,7 +17,7 @@
 	"dependencies": {
 		"@astrojs/mdx": "4.0.1",
 		"@astrojs/react": "^4.0.0",
-		"@astrojs/rss": "4.0.9",
+		"@astrojs/rss": "4.0.10",
 		"@astrojs/sitemap": "3.2.1",
 		"@astrojs/starlight": "^0.29.2",
 		"@astrojs/tailwind": "5.1.3",
