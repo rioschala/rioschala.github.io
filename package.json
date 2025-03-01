@@ -19,7 +19,7 @@
 		"@astrojs/react": "^4.1.6",
 		"@astrojs/rss": "4.0.11",
 		"@astrojs/sitemap": "3.2.1",
-		"@astrojs/starlight": "^0.31.1",
+		"@astrojs/starlight": "^0.32.2",
 		"@astrojs/tailwind": "5.1.5",
 		"@types/react": "^18.3.12",
 		"@types/react-dom": "^18.3.1",
