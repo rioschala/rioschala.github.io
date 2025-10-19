@@ -1,9 +1,9 @@
-# .github/workflows/deploy-pages.yml
+# .github/workflows/deploy.yml
 name: Deploy Astro to GitHub Pages
 
 on:
   push:
-    branches: [ main ]   # or your chosen branch
+    branches: [ main ]
   workflow_dispatch:
 
 permissions:
@@ -12,7 +12,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: pages
   cancel-in-progress: true
 
 jobs:
@@ -20,16 +20,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: "npm"
-      - run: npm ci
-      - run: npm run build
-      - run: touch dist/.nojekyll      # ensures Pages does not try Jekyll
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+
+      - run: touch dist/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist                 # Astro default output
+          path: dist
 
   deploy:
     runs-on: ubuntu-latest
