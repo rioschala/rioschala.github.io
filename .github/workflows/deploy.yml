@@ -27,11 +27,19 @@ jobs:
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
 
-      - run: corepack enable
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm build
+      # Enable Corepack so pnpm becomes available
+      - name: Enable Corepack (installs pnpm)
+        run: corepack enable
 
-      - run: touch dist/.nojekyll
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build site
+        run: pnpm build
+
+      - name: Prepare for Pages
+        run: touch dist/.nojekyll
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
