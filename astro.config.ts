@@ -12,9 +12,11 @@ import remarkDirective from "remark-directive";/* Handle ::: directives as nodes
 import remarkUnwrapImages from "remark-unwrap-images";
 import { remarkAdmonitions } from "./src/utils/remark-admonitions";/* Add admonitions */
 import { remarkReadingTime } from "./src/utils/remark-reading-time";
+import remarkMath from "remark-math"; // <-- new
 
 // Rehype plugins
 import rehypeExternalLinks from "rehype-external-links";
+import rehypeKatex from "rehype-katex"; // <-- new
 
 import react from "@astrojs/react";
 
@@ -36,8 +38,15 @@ export default defineConfig({
                     target: "_blank",
                 },
             ],
+            rehypeKatex, // <-- add this so math is rendered as KaTeX
         ],
-        remarkPlugins: [remarkUnwrapImages, remarkReadingTime, remarkDirective, remarkAdmonitions],
+        remarkPlugins: [
+            remarkUnwrapImages,
+            remarkReadingTime,
+            remarkDirective,
+            remarkAdmonitions,
+            remarkMath, // <-- add this to parse $...$ and $$...$$
+        ],
         remarkRehype: {
             footnoteLabelProperties: {
                 className: [""],
