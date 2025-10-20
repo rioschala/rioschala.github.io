@@ -31,18 +31,17 @@ jobs:
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
 
-      # Install pnpm on the runner
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
-          run_install: false
-
-      - name: Verify tools
+      # Ensure pnpm is available, with two fallbacks
+      - name: Provision pnpm
         run: |
-          node -v
+          set -e
+          corepack enable || true
+          corepack prepare pnpm@9 --activate || true
+          if ! command -v pnpm >/dev/null 2>&1; then
+            npm i -g pnpm@9
+          fi
           pnpm -v
-          which pnpm || type -a pnpm
+          which pnpm
 
       - name: Setup Pages
         id: pages
