@@ -1,4 +1,5 @@
 name: Deploy Astro site to Pages
+
 on:
   push:
     branches: ["main"]
@@ -20,22 +21,23 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
 
-      # ⇩ This step INSTALLS pnpm on the runner
+      # Install pnpm on the runner
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
           version: 9
           run_install: false
 
-      # Quick proof that pnpm is available
       - name: Verify tools
         run: |
           node -v
@@ -61,7 +63,8 @@ jobs:
         run: touch dist/.nojekyll
         working-directory: ${{ env.BUILD_PATH }}
 
-      - uses: actions/upload-pages-artifact@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ${{ env.BUILD_PATH }}/dist
 
