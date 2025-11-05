@@ -1,9 +1,9 @@
 ---
 title: FirstClasssOOP
 slug: firstclasssoop
-description: 'Please enter a description of your post here, between 50-160 chars!'
+description: 'Solution to a final task for my major in Systems Engineering regarding OOP'
 publishDate: 03 November 2025
-tags: []
+tags: [college, OOP, python]
 draft: false
 ogImage: "/social-card.png"
 ---
@@ -13,25 +13,55 @@ El siguiente artículo se centra en al proceso de reflexión y aprendizaje para 
 
 # Solución
 
-## levantamiento de requererimientos
+## levantamiento de requerimientos
 Al tratarse de una librearia universitaria, es imporntante considerar los casos de uso del sistema y los posibles actores. En este sentido se cuenta con los siguientes:
 <ul>
 <li>Cliente: Esta entidad se acerca a la libreria e interactua con los elementos disponibles en ella. Puede comprar objetos de diferentes categorías y en múltiples cantidades.  </li>
 <li>Administrador: Esta entidad se encarga de registrar los artículos de la tienda, consultar, modificar y eleminar elementos de la misma. Sus cambios afectan directamente el inventario de la libreria</li>
 </ul>
 
-### Tipos de requererimientos
+### Tipos de requerimientos
+En el proceso de desarrollo de programas para clientes, es fundamental contar con apoyo por parte de los intereados con el fin de encontrar aquellos elementos que son esenciales para el programa y para el usuario. Estos se dividen en múltiples categorias que permiten al desarrollador o grupo de estos enfocarse en diferentes ramas del programa. Igualmente, este proceso permite crear programas modulares, eficientes y seguro que cumplan con las expectativas iniciales. Claro está que debido a que el proceso de desarrollo no es linear, es posible que se ajusten, de delimiten o se descarten. 
 
-#### requererimientos funcionales
+En este proceso, los objetivos se suelen crear bajo la metodología SMART (específicos, medibles, alcanzables, realistas y enmarcados temporalmente). Al aplicar esta estrategia, tanto el desarrollador como el cliente pueda comprender las necesidades y reducir el nivel de abstracción 
+#### Requerimientos funcionales
+Los requerimientos funcionales según V/sure (s.f)[^1] y Geeks4Geeks (2025)[^2] son aquellos que se centran en los elementos esenciales para que el programa pueda cumplir la función definida.
+<b>
+<ul>
+<li> El cliente puede consultar los artículos disponibles por categoría organizados de manera alfabetica.</li>
+<li> El administrador puede agregar artículos a la librería.</li>
+<li> El administrador pueda eliminar artículos de la tienda con verificación doble de confirmación.</li>
+<li> El administrador pueda modificar las características de los productos como precio. </li>
+<li> El administrador puede consultar los artículos disponibles en la librería. </li>
+</ul>
+</b>
 
-#### requermienentos no funcionales
-
-##### rendimiento
-
-##### seguridad
-
-##### calidad
-
+#### Requerimientos no funcionales
+Los requerimientos no funcionales son aquellos que cumplen con factores adicionales del programa y que no interfieren directamente con el funcionamiento esencial del mismo. Por el contrario, estos se centra en el cómo lograr las funciones posibles mas que el qué lograr. Es por esto que se pueden categorizar dentro de varios subgrupos así:
+##### Requerimientos de rendimiento
+<b>
+<ul>
+<li> La aplicación debe correr en la terminal de los usuarios y proveer una interfaz de comando para la interacción usuario --> programa </li>
+<li> La aplicación debe manejar múltiples clientes y administradores en el sistema. </li>
+<li> El programa debe poder registrar cientos de productos con múltiples capacidades.</li>
+</ul>
+</b>
+##### Requerimientos de seguridad
+<b>
+<ul>
+<li> Los administradores deben verificar su identidad con una contraseña</li>
+<li> Las claves deben guardarse de manera segura en una base de datos hasheada </li>
+<li> Los usuarios no pueden forzar la modificación de los productos </li>
+</ul>
+</b>
+##### Requerimientos de calidad
+<b>
+<ul>
+<li> Los menús deben ser claros para el usuario </li>
+<li> Cuando se presenten errores, el sistema debe brindar respuesta al usuario </li>
+<li> En todo momento el usuario puede regresar al menu central</li>
+</ul>
+</b>
 
 ## UML
 Este paradigma ha logrado unificar las diferentes notaciones creadas para demostrar las relaciones entre diferentes elementos. En este caro, haré uso de StarUML, un software que permite construir todo tipo de diagramas de manera rápida y simplificada. 
@@ -43,4 +73,12 @@ Para el presente escenario, el caso de uso comprar incluye el caso de uso de con
 ### Diagrama de clases
 
 En este diagrama se presenta las relaciones de asociación disponibles entre las clases cliente, administrador e Item. En este se encuentran relaciones 1 a n y n a n.
-<img src="https://pub-18229f9d31f241a4b80d8d8a9c50ec52.r2.dev/oop/Main.png" />
+<img src="https://pub-18229f9d31f241a4b80d8d8a9c50ec52.r2.dev/oop/Main.png"/>
+
+### Estructuras de datos
+En la programación, existen estructuras de datos que permiten almacenar los datos de manera temporal o permanente en la memoria ram o en la memoria secundaria. En este caso, los arreglos pueden ser una buena manera de almacenar la información, empero no permiten conservar la información una vez el programa se cierre y se reinicie. Es por esto que dentro de este caso, se define que la mejor manera para almacenar los datos se convierte en una base de datos relacional usando mysqlite3. Presento el esquema de la base de datos.
+
+<img src="https://pub-18229f9d31f241a4b80d8d8a9c50ec52.r2.dev/oop/esquema%20base%20de%20datosdrawio.png" />
+
+[^1]: <a href="https://visuresolutions.com/es/guía-de-limosna/requerimientos-funcionales/">V/Sure</a>
+[^2]: <a href="https://www.geeksforgeeks.org/software-engineering/functional-vs-non-functional-requirements/">Geeks4Geeks</a>
