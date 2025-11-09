@@ -7,6 +7,11 @@ tags: [college, OOP, python, CUN, ACA]
 draft: false
 ogImage: "/social-card.png"
 ---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+:::tip
+Este documento ofrece el código fuente de la aplicación. 
+:::
 
 El siguiente artículo se centra en al proceso de reflexión y aprendizaje para realizar un sistemas de consola para una libreria universitaria. Presentaré el proceso de diseño, levantamiento de requisitos, Analysis, Design, Coding and Testing, y finalmente evidencias de todo el proyecto, incluido el código fuente. 
 
@@ -50,7 +55,7 @@ Los requerimientos no funcionales son aquellos que cumplen con factores adiciona
 <b>
 <ul>
 <li> Los administradores deben verificar su identidad con una contraseña</li>
-<li> Las claves deben guardarse de manera segura en una base de datos hasheada </li>
+<li> Las claves deben guardarse de manera segura en una base de datos </li>
 <li> Los usuarios no pueden forzar la modificación de los productos </li>
 </ul>
 </b>
@@ -79,6 +84,258 @@ En este diagrama se presenta las relaciones de asociación disponibles entre las
 En la programación, existen estructuras de datos que permiten almacenar los datos de manera temporal o permanente en la memoria ram o en la memoria secundaria. En este caso, los arreglos pueden ser una buena manera de almacenar la información, empero no permiten conservar la información una vez el programa se cierre y se reinicie. Es por esto que dentro de este caso, se define que la mejor manera para almacenar los datos se convierte en una base de datos relacional usando mysqlite3. Presento el esquema de la base de datos.
 
 <img src="https://pub-18229f9d31f241a4b80d8d8a9c50ec52.r2.dev/oop/esquema%20base%20de%20datosdrawio.png" />
+
+### Desarrollo y explicación
+Con motivo del uso de las bases de datos y de un control acertado del cierre de la aplicación por parte de los usuarios y finalizar la ejecución del código, se importan las librerias requeridas
+```python title="Librerias Importadas" wrap
+import sqlite3
+import sys 
+```
+Seguido a esto, se procede a crear las clases para el usuario, quien puede variar según el caso de uso entre cliente y administrador. En este caso, crear dicha clase nos permite mejorar el componente de heriencia de atributos de la clase padre y polimorfismo de OOP. 
+```python title="Clase Usuario" wrap
+class Usuario:
+    def __init__(self,id_usuario, nombre,):
+        self.id= id_usuario
+        self.nombre = nombre
+```
+Esta clase cuenta con atributos básicos que son importantes según nuestro estudio del problema y el levantamiento de requerimientos. Sin embargo, algunos atributos cuentan con valores iniciales por defecto, como el ser cliente frecuente siendo negativo o falso, pues ningún cliente obtiene esta característica por defecto. Adicionalmente, a la clase Cliente se le definen métodos iniciales básicos para interactuar con la base de datos como el poder consultar y comprar.
+```python title="Clase Cliente" wrap
+class Cliente(Usuario):
+    def __init__(self, id_usuario, nombre, esfrecuente=False, total=0.0):
+        super().__init__(id_usuario, nombre)
+        self.esfrecuente = esfrecuente
+        self.total = total
+    def consultar_item(self, basededatos, nombre_item):
+        return basededatos.obtener(nombre_item)
+    def comprar_item(self, basededatos, nombre_item, cantidad):
+        return basededatos.realizar_compra(self.id, nombre_item,cantidad)
+```
+Es importante recordar que cuando se define el método constructor de una clase que hereda elementos de otros, se debe ejecutar la función <b>super()</b> para heredar los atributos de la función padre.
+
+```python title="Clase Administrador" wrap
+class Administrador(Usuario):
+    def __init__(self, id_usuario, nombre, contra,esenturno ):
+        super().__init__(id_usuario, nombre) 
+        self.contra = contra 
+        self.esenturno =  esenturno
+    def agregar_item(self, basededatos, nombre, precio, categoria, cantidad):
+        return basededatos.agregar_item(nombre, precio, categoria, cantidad) 
+    def consultar_item(self, basededatos, nombre_item):
+        return basededatos.obtener(nombre_item)   
+```
+Adicionalmente, se define la clase relacionada con los items. Esta permitira instanciarse tantas veces sea necesaria para crear la información requerida en la libreria. 
+```python title="Clase Item" wrap
+class Item:
+    def __init__(self,id_item, nombre, precio, categoria, cantidad):
+        self.id=id_item
+        self.nombre = nombre
+        self.precio = precio
+        self.categoria = categoria
+        self.cantidad = cantidad
+```
+Ahora bien, para lograr establecer una conexión con la base de datos, es importante crear la relación entre la librería importada y el método constructor de la misma. En este se debe crear el conector y el cursor para crear, acceder, modificar y cerrar la base de datos.
+```python title="Conexión inicial base de datos" wrap
+class basededatos:
+    def __init__(self, nombrebase="libreria.db"):
+        self.nombrebase = nombrebase
+        self.con = None
+        self.cursor = None
+        self.conectar()
+        self.crear_tabla()
+    def conectar(self):
+        self.con= sqlite3.connect(self.nombrebase)
+        self.cursor=self.con.cursor()
+    def cerrar(self):
+        if self.con:
+            self.con.close()
+    def ejecutar(self, query, params=()):
+        self.cursor.execute(query, params)
+        self.con.commit()
+        return self.cursor
+```
+Al tiempo, es fundamental popular la base de datos con las tablas relacionales. Para esto, se ejecutan las queries con los parámetros establecidos en el esquema expuesto en la sección de bases de datos.
+```python title="Creación de tablas" 
+def crear_tabla(self):
+        self.ejecutar("""
+                      CREATE TABLE IF NOT EXISTS Item (ID INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT UNIQUE NOT NULL,
+                      precio REAL NOT NULL, 
+                      categoria TEXT, 
+                      cantidad INT NOT NULL)
+                      """)
+        self.ejecutar("""
+                      CREATE TABLE IF NOT EXISTS Administrador(
+                          ID INTEGER PRIMARY KEY, nombre TEXT NOT NULL, contrasena TEXT NOT NULL, esenturno BOOLEAN NOT NULL DEFAULT 0
+                      )
+                      """)
+        self.ejecutar("""
+                      CREATE TABLE IF NOT EXISTS Cliente(
+                          ID INTEGER PRIMARY KEY AUTOINCREMENT, 
+                          nombre TEXT NOT NULL, esfrecuente BOOLEAN NOT NULL DEFAULT 0, total REAL NOT NULL DEFAULT 0.0
+                      )
+                      """)
+```
+Posteriormente, se crea el sistema CRUD (Create, Read, Update, Delete) de gestión de la base de datos en función de los métodos del usuario administrador o cliente. 
+
+<b>Crear</b>
+<br></br>
+
+```python title="Create" wrap
+def agregar_item(self, nombre, precio, categoria, cantidad):
+        query = "INSERT OR IGNORE INTO Item (nombre, precio, categoria, cantidad) VALUES (?, ?, ?, ?)"
+        result = self.ejecutar(query, (nombre, precio, categoria, cantidad))
+        return result is not None
+```
+<br></br>
+<b>Leer</b>
+<br></br>
+
+```python title="Read" wrap
+def obtener(self, nombre= None):
+        if nombre:
+            query = "SELECT ID, nombre, precio, categoria, cantidad FROM Item WHERE nombre LIKE ?"
+            result = self.ejecutar(query, ('%' + nombre + '%',))
+        else:
+            query = "SELECT ID, nombre, precio, categoria, cantidad FROM Item"
+            result = self.ejecutar(query)
+            
+        items = []
+        if result:
+            for row in result.fetchall():
+                items.append(Item(*row))
+        return items
+```
+<br></br>
+<b>Actualizar</b>
+<br></br>
+
+```python title="Update" wrap
+ def modificar_item(self, nombre, nuevoprecio = None, nuevacategoria=None, nuevacantidad = None):
+        update = []
+        params = []
+        if nuevoprecio is not None:
+            update.append("precio = ?")
+            params.append(nuevoprecio)
+        if nuevacategoria is not None:
+            update.append("categoria = ?")
+            params.append(nuevacategoria)
+        if nuevacantidad is not None:
+            update.append("cantidad = ?")
+            params.append(nuevacantidad)
+        if not update:
+            return False
+        params.append(nombre)
+        query = f"UPDATE Item SET {', '.join(update)} WHERE nombre = ?"
+        result = self.ejecutar(query, params)
+        
+        return result and result.rowcount > 0
+```
+<br></br>
+<b>Eliminar</b>
+<br></br>
+
+```python title="Delete" wrap
+def eliminar(self, nombre):
+        query = "DELETE FROM Item WHERE nombre = ?"
+        result= self.ejecutar(query, (nombre,))
+        return result and result.rowcount >0
+```
+
+Así mismo, es importante considerar la creación de usuarios por defecto para brindar la oportunidad de una demonstración al cliente que pagó por el desarollo de la aplicación. Por esto, se ejecuta dentro de la base de datos el siguiente código:
+
+```python title="" wrap
+def crearcliente(self, nombre):
+        query = "INSERT INTO Cliente (nombre) VALUES (?)"
+        result = self.ejecutar(query, (nombre,))
+        if result:
+            return Cliente(result.lastrowid, nombre)
+        return None
+def inicializar_administrador(self):
+        self.ejecutar("INSERT OR IGNORE INTO Administrador (ID, nombre, contrasena, esEnTurno) VALUES (1, 'SuperAdmin', 'admin123', 1)")
+```
+Finalmente se procede a crear la clase Libreria que permite organizar y relacionar los atributos y métodos ya creados al tiempo que aquellos elementos que le permiten al usuario interactuar con la aplicación mediante la terminal. 
+
+```python title="Clase Libreia" wrap
+class Libreria:
+    def __init__(self):
+        self.gestor = basededatos()
+        self.usuario_actual = None
+        self.datosejemplo()
+    def datosejemplo(self):
+        self.gestor.inicializar_administrador()
+        self.gestor.agregar_item('El Principito', 15000, 'Ficción', 10)
+        self.gestor.agregar_item('POO con Python', 45000, 'Programación', 5)
+        # Inicializa un cliente de prueba
+        self.gestor.crearcliente('Sergio')
+    def menu(self):
+        if isinstance(self.usuario_actual, Administrador):
+            print("\n--- Menú de Administrador ---")
+            print("1. Consultar Items (R)")
+            print("2. Agregar Item (C)")
+            print("3. Modificar Item (U)")
+            print("4. Eliminar Item (D)")
+            print("5. Cerrar Sesión")
+            print("6. Salir")
+            return input("Seleccione una opción: ")
+        elif isinstance(self.usuario_actual, Cliente):
+            print("\n--- Menú de Cliente ---")
+            print("1. Consultar Items")
+            print("2. Comprar Item")
+            print("3. Cerrar Sesión")
+            print("4. Salir")
+            return input("Seleccione una opción: ")
+        else:
+            print("\n--- Menú Principal ---")
+            print("1. Iniciar Sesión como Cliente")
+            print("2. Iniciar Sesión como Administrador")
+            print("3. Registrar Nuevo Cliente")
+            print("4. Salir")
+            return input("Seleccione una opción: ")
+```
+Para finalizar, se crean las estructuras de control para gestionar las entradas del usuario.
+
+```python title="Gestión de estructuras" wrap
+def ejecutar(self):
+    
+        while True:
+            opcion = self.menu()
+            if self.usuario_actual is None:
+                if opcion == '1': self.iniciar_sesion_cliente()
+                elif opcion == '2': self.iniciar_sesion_admin()
+                elif opcion == '3': self.registrar_cliente()
+                elif opcion == '4': 
+                    print("Saliendo del sistema...")
+                    self.gestor.cerrar()
+                    sys.exit(0)
+                else: print("Opción inválida.")
+            
+            elif isinstance(self.usuario_actual, Administrador):
+                if opcion == '1': self.func_consultar_items()
+                elif opcion == '2': self.func_agregar_item()
+                elif opcion == '3': self.func_modificar_item()
+                elif opcion == '4': self.func_eliminar_item()
+                elif opcion == '5': self.cerrar_sesion()
+                elif opcion == '6':
+                    print("Saliendo del sistema...")
+                    self.gestor.cerrar()
+                    sys.exit(0)
+                else: print("Opción inválida.")
+
+            elif isinstance(self.usuario_actual, Cliente):
+                if opcion == '1': self.func_consultar_items()
+                elif opcion == '2': self.func_comprar_item()
+                elif opcion == '3': self.cerrar_sesion()
+                elif opcion == '4': 
+                    print("Saliendo del sistema...")
+                    self.gestor.cerrar()
+                    sys.exit(0)
+                else: print("Opción inválida.")
+
+```
+Por último, se ejecuta el programa desde la terminal y se obtiene que:
+<img src="https://pub-18229f9d31f241a4b80d8d8a9c50ec52.r2.dev/oop/Screenshot%202025-11-08%20at%2020.52.24.png" />
+
+
+### Video de demonstración técnica y verificación de requerimientos
 
 [^1]: <a href="https://visuresolutions.com/es/guía-de-limosna/requerimientos-funcionales/">V/Sure</a>
 [^2]: <a href="https://www.geeksforgeeks.org/software-engineering/functional-vs-non-functional-requirements/">Geeks4Geeks</a>
