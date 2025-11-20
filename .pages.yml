@@ -3,7 +3,7 @@
 media:
   # Images uploaded via the CMS will go here. 
   # This keeps them separate from your code logic.
-  input: public/images
+  input: public/pictures
   output: /images
 
 content:
