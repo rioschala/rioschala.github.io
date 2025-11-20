@@ -33,7 +33,8 @@ content:
         label: Publish Date
         type: date
         required: true
-        date_format: "dd MMMM yyyy"
+        options:
+          format: "dd MMMM yyyy"
 
       # --- Organization ---
       - name: tags
@@ -52,7 +53,8 @@ content:
       - name: updatedDate
         label: Updated Date
         type: date
-        date_format: "dd MMMM yyyy"
+        options:
+          format: "dd MMMM yyyy"
 
       # --- Content ---
       - name: body
