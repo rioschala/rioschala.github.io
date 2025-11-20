@@ -48,9 +48,6 @@ content:
 
       # --- Images ---
       # I removed Cover Image. Keeping ogImage since it's in your frontmatter.
-      - name: ogImage
-        label: Social Card (ogImage)
-        type: image
         
       - name: updatedDate
         label: Updated Date
