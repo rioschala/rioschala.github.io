@@ -1,0 +1,63 @@
+# .pages.yml
+
+media:
+  # Images uploaded via the CMS will go here. 
+  # This keeps them separate from your code logic.
+  input: public/images
+  output: /images
+
+content:
+  - name: post
+    label: Posts
+    path: src/content/post
+    type: collection
+    # Default to .mdx for new files since you seem to use it for complex posts
+    filename: "{year}-{month}-{day}-{slug}.mdx" 
+    
+    # This allows Pages CMS to see files inside subfolders (like /OOP/...)
+    nested: true 
+
+    fields:
+      # --- Essential Fields ---
+      - name: title
+        label: Title
+        type: string
+        required: true
+
+      - name: description
+        label: Description
+        type: text
+        required: true
+        
+      - name: publishDate
+        label: Publish Date
+        type: date
+        required: true
+        date_format: "dd MMMM yyyy"
+
+      # --- Organization ---
+      - name: tags
+        label: Tags
+        type: list
+        default: []
+
+      - name: draft
+        label: Is Draft?
+        type: boolean
+        default: false
+
+      # --- Images ---
+      # I removed Cover Image. Keeping ogImage since it's in your frontmatter.
+      - name: ogImage
+        label: Social Card (ogImage)
+        type: image
+        
+      - name: updatedDate
+        label: Updated Date
+        type: date
+        date_format: "dd MMMM yyyy"
+
+      # --- Content ---
+      - name: body
+        label: Content
+        type: rich-text
