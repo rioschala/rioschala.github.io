@@ -40,6 +40,8 @@ content:
       - name: tags
         label: Tags
         type: list
+        of:
+          type: string
         default: []
 
       - name: draft
