@@ -39,9 +39,7 @@ content:
       # --- Organization ---
       - name: tags
         label: Tags
-        type: list
-        of:
-          type: string
+        type: string
         default: []
 
       - name: draft
