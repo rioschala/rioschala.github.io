@@ -23,7 +23,18 @@ const post = defineCollection({
 				.string()
 				.or(z.date())
 				.transform((val) => new Date(val)),
-			tags: z.array(z.string()).default([]).transform(removeDupsAndLowerCase),
+			tags: z.preprocess((val) => {
+    if (!val) return [];
+    if (Array.isArray(val)) return val;
+    if (typeof val === "string") {
+      return val
+        .split(",")
+        .map((t) => t.trim())
+        .filter(Boolean);
+    }
+    return [];
+  }, z.array(z.string()))
+  .transform(removeDupsAndLowerCase),
 			title: z.string().max(60),
 			updatedDate: z
 				.string()
