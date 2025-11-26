@@ -13,7 +13,10 @@ content:
     type: collection
     # Default to .mdx for new files since you seem to use it for complex posts
     filename: "{year}-{month}-{day}-{primary}.mdx" 
-    
+
+    view:
+      primary: title
+      fields: [title, publishDate]
     # This allows Pages CMS to see files inside subfolders (like /OOP/...)
 
     fields:
