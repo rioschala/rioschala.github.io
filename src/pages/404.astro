@@ -1,22 +1,121 @@
 ---
 import PageLayout from "@/layouts/Base.astro";
 
-
 const meta = {
-	description: "Oops! It looks like this page is lost in space!",
-	title: "Oops! You found a missing page!",
+    description: "Oops! It looks like this page is lost in space!",
+    title: "Oops! You found a missing page!",
 };
 ---
 
 <PageLayout meta={meta}>
-	<h1 class="title mb-6">404 | Oops something went wrong</h1>
-	<p class="mb-8">Please use the navigation to find your way back</p>
-	<div class="my-4 grid place-items-center">
-		<img
-			alt="Sergio Rios in a cartoon style"
-			loading="eager"
-			src=/pictures/sricon.png
-			class = "w-3/4 sm:w-1/6 lg:w-1/4 rounded-lg object-cover"
-		/>
-	</div>
+    <!-- The entire block is now a link to home -->
+    <a href="/" class="block404">
+        <div class="waves"></div>
+        <div class="obj">
+            <img src="https://imgur.com/w0Yb4MX.png" alt="Floating object">
+        </div>
+        <div class="t404"></div>
+        
+        <!-- New Text Added Here -->
+        <p class="return-text">Click anywhere to return to home</p>
+
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="width:0; height:0;">
+            <defs>
+                <filter id="glitch">
+                    <feTurbulence type="fractalNoise" baseFrequency="0.01 0.03" numOctaves="1" result="warp" id="turb"/>
+                    <feColorMatrix in="warp" result="huedturb" type="hueRotate" values="90">
+                        <animate attributeType="XML" attributeName="values" values="0;180;360" dur="3s" repeatCount="indefinite"/>
+                    </feColorMatrix>
+                    <feDisplacementMap xChannelSelector="R" yChannelSelector="G" scale="50" in="SourceGraphic" in2="huedturb"/>
+                </filter>
+            </defs>
+        </svg>
+    </a>
 </PageLayout>
+
+<style>
+    .block404 {
+        /* Makes the link behave like a block container covering the screen */
+        display: block; 
+        width: 100vw;
+        height: 100vh;
+        position: fixed; 
+        top: 0;
+        left: 0;
+        
+        background-image: url(https://imgur.com/eHVyWTM.jpg);
+        background-color: #18222d;
+        background-size: cover;
+        background-position: center;
+        overflow: hidden;
+        cursor: pointer;
+        z-index: 9999; /* Ensures it sits on top of everything else */
+        text-decoration: none; /* Removes underline from the link */
+    }
+
+    .t404 {
+        position: absolute;
+        width: 364px;
+        height: 146px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-image: url(https://imgur.com/KPZo9YX.png);
+        z-index: 10;
+        max-width: 90%; 
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+
+    .obj {
+        width: 204px;
+        height: 209px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: animation-404 6s infinite ease-in-out;
+        z-index: 5;
+    }
+
+    /* Style for the new text */
+    .return-text {
+        position: absolute;
+        bottom: 15%; /* Positions it near the bottom */
+        width: 100%;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.8);
+        font-family: sans-serif;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        z-index: 20;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes animation-404 {
+        0%, 100% {
+            transform: translate(-50%, -50%) rotate(0);
+        }
+        50% {
+            transform: translate(-53%, -42%) rotate(-5deg);
+        }
+    }
+
+    @keyframes pulse {
+        0%, 100% { opacity: 0.8; }
+        50% { opacity: 0.4; }
+    }
+
+    .waves {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-image: url(https://imgur.com/eHVyWTM.jpg);
+        background-size: cover;
+        background-position: center;
+        filter: url("#glitch");
+        opacity: 0.8;
+        pointer-events: none;
+    }
+</style>
