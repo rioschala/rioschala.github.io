@@ -12,7 +12,7 @@ content:
     path: src/content/post
     type: collection
     # Default to .mdx for new files since you seem to use it for complex posts
-    filename: "{year}-{month}-{day}-{fields.title}.mdx" 
+    filename: "{year}-{month}-{day}-{primary}.mdx" 
     
     # This allows Pages CMS to see files inside subfolders (like /OOP/...)
 
