@@ -1,197 +1,171 @@
-Project Documentation & Usage Guide
+# Project Documentation & Syntax Guide
 
-Welcome to the project! This document serves as a reference for running the project, authoring content, and utilizing the built-in formatting features.
+This document serves as the primary reference for building, running, and writing content for this Astro project.
 
-Project Commands
+##  Project Commands
 
-This project uses pnpm as the package manager and Astro as the framework. Below are the essential commands to run and build the project.
+We use **pnpm** for package management. Below are the built-in commands for the development lifecycle.
 
-Command
-
-Action
-
-Description
-
-pnpm install
-
-Install
-
-Installs all dependencies defined in package.json.
-
-pnpm run dev
-
-Development
-
-Starts the local development server at http://localhost:4321. Hot-reloading is enabled.
-
-pnpm run build
-
-Build
-
-Builds the production site to the ./dist/ directory.
-
-pnpm run preview
-
-Preview
-
-Previews the locally built ./dist/ folder to check the production build before deploying.
-
-pnpm run astro check
-
-Type Check
-
-Runs diagnostic checks against your project's types and content.
-
-📝 Frontmatter Requirements
-
-All content files (Markdown .md or MDX .mdx) must begin with a YAML frontmatter block enclosed by triple dashes ---.
-
-Standard Schema
-
-Below is the required structure for the frontmatter:
+| Command | Action | Description |
+| :--- | :--- | :--- |
+| `pnpm install` | **Setup** | Installs all dependencies defined in `package.json`. |
+| `pnpm run dev` | **Development** | Starts the local development server (usually at `localhost:4321`). |
+| `pnpm run build` | **Production** | Builds the production-ready site into the `dist/` directory. |
+| `pnpm run preview` | **Preview** | Previews the built `dist/` folder locally before deployment. |
+| `pnpm run astro` | **CLI** | Runs the Astro CLI directly for other utilities. |
 
 ---
-title: "Title of the Post"
-description: "A brief summary of the content for SEO and previews."
-pubDate: "2023-10-27" # Format: YYYY-MM-DD
-updatedDate: "2023-11-01" # Optional
-heroImage: "/blog-placeholder-1.jpg" # Path relative to the /public folder
-tags: ["astro", "docs", "tutorial"]
-layout: "../../layouts/BlogPost.astro" # Optional, usually auto-handled
+
+## 📝 Frontmatter Requirements
+
+Every Markdown (`.md`) or MDX (`.mdx`) file must begin with a Frontmatter block enclosed by triple dashes `---`.
+
+**Required Fields:**
+* `title`: (String) The primary heading of the page.
+* `description`: (String) A brief summary for SEO and previews.
+* `pubDate`: (Date) Format `YYYY-MM-DD`.
+
+**Optional Fields:**
+* `updatedDate`: (Date) When the post was last modified.
+* `heroImage`: (String) Path to the cover image (e.g., `/blog-placeholder-1.jpg`).
+* `tags`: (Array) A list of related topics.
+
+### Example
+```yaml
+---
+title: "Getting Started with Systems Engineering"
+description: "An intro to the first semester curriculum."
+pubDate: "2023-11-27"
+updatedDate: "2023-11-28"
+heroImage: "/images/systems-eng.jpg"
+tags: ["engineering", "guide", "intro"]
 ---
 
+## 🧮 KaTeX (Mathematical Notation)
 
-🎨 Content Features
+This project is configured to render math using KaTeX. You must use LaTeX syntax enclosed in dollar signs.
 
-1. KaTeX (Mathematics)
+### Inline Math
+Use single dollar signs `$` to wrap the formula.
 
-This project supports LaTeX math equations via KaTeX.
+* **Syntax:** ``Let $f(x) = x^2$ be the function.``
+* **Renders as:** Let $f(x) = x^2$ be the function.
 
-Inline Math:
-Wrap the equation in single dollar signs $.
+### Block Math
+Use double dollar signs `$$` for equations that should stand on their own line.
 
-Syntax: Let $f(x) = x^2$ be the function.
-
-Result: Let $f(x) = x^2$ be the function.
-
-Block Math:
-Wrap the equation in double dollar signs $$.
-
-Syntax:
-
+**Syntax:**
+```latex
 $$
-\int_{0}^{\infty} e^{-x^2} dx = \frac{\sqrt{\pi}}{2}
+\int_{0}^{\infty} x^2 e^{-x} \, dx = 2!
 $$
+```
 
+---
 
-Result:
+## ⚠️ Admonitions (Callouts)
 
-\int_{0}^{\infty} e^{-x^2} dx = \frac{\sqrt{\pi}}{2}
+We use `remark-directive` to create callout boxes. Use the `:::` syntax followed by the type.
 
-2. Admonitions (Callouts)
+**Available Types:** `note`, `tip`, `caution`, `danger`.
 
-Use admonitions to highlight warnings, tips, or notes. We use the specific directive syntax :::.
+### Syntax Example
 
-Syntax:
-
-:::note
-This is a standard note.
-:::
-
-:::tip[Pro Tip]
-You can add a custom title to the directive!
-:::
-
-:::caution
-Be careful with this configuration.
+```text
+:::tip[My Title]
+This is a helpful tip.
 :::
 
 :::danger
-Do not delete production database keys.
+This is a warning message.
 :::
-
-
-3. Tabs (MDX Only)
-
-To group content into switchable tabs, use the <Tabs> and <TabItem> components. This requires using a .mdx file.
-
-Syntax:
-
-import { Tabs, TabItem } from '@astrojs/starlight/components'; // Path may vary based on config
-
-<Tabs>
-  <TabItem label="npm">
-    ```bash
-    npm install astro
-    ```
-  </TabItem>
-  <TabItem label="pnpm">
-    ```bash
-    pnpm add astro
-    ```
-  </TabItem>
-</Tabs>
-
-
-4. Code Blocks
-
-Use triple backticks for code blocks. Specify the language after the opening ticks for syntax highlighting.
-
-Syntax:
-
-```typescript
-const getGreeting = (name: string) => {
-    return `Hello, ${name}!`;
-}
 ```
 
+---
 
-Result:
+## 🗂️ Tabs
 
-const getGreeting = (name: string) => {
-    return `Hello, ${name}!`;
-}
+Tabs are used to switch between different content views (e.g., Mac vs. Windows instructions).
+*Note: This usually requires the file to be `.mdx` and the component to be imported.*
 
+### Syntax
 
-📚 Standard Markdown Reference
+```tsx
+<Tabs>
+  <TabItem label="NPM">
+    npm install astro
+  </TabItem>
+  <TabItem label="PNPM">
+    pnpm add astro
+  </TabItem>
+</Tabs>
+```
 
-A quick refresher on standard Markdown elements supported out of the box.
+---
 
-Typography
+## 💻 Code Blocks
 
-Bold: **text** or __text__ → text
+Use triple backticks to create code blocks. Always specify the language identifier for syntax highlighting.
 
-Italic: *text* or _text_ → text
+### Standard Syntax
 
-Strikethrough: ~~text~~ → ~~text~~
+```text
+```javascript
+console.log('Hello world');
+```
+```
 
-Blockquote: > text
+### Advanced Features (Line Highlighting & Titles)
+*Depends on `rehype-pretty-code` or `shiki` configuration.*
 
-Lists
+```text
+```python title="app.py" {2}
+def main():
+    print("This line is highlighted")
+    return 0
+```
+```
 
-Unordered:
+---
 
-- Item 1
-- Item 2
-  - Subitem
+## 📄 Standard Markdown Reference
 
+### Text Formatting
+* **Bold:** `**text**`
+* *Italic:* `*text*`
+* ~~Strikethrough~~: `~~text~~`
+* `Inline Code`: Backticks `` `text` ``
 
-Ordered:
+### Lists
 
-1. First
-2. Second
-3. Third
+**Unordered:**
+* Item 1
+* Item 2
+    * Indented sub-item
 
+**Ordered:**
+1.  Step One
+2.  Step Two
 
-Links & Images
+### Blockquotes
+Use the `>` character.
 
-Link: [Link Text](https://example.com)
+> This is a blockquote.
+> It can span multiple lines.
 
-Image: ![Alt Text](/path/to/image.jpg)
+### Links & Images
+* **Link:** `[Title](URL)`
+    * Example: `[Google](https://google.com)`
+* **Image:** `![Alt Text](URL)`
+    * Example: `![Screenshot](/images/screenshot.png)`
 
-Tables
+### Tables
 
-| Header 1 | Header 2 |
-| :------- | :------- |
-| Row 1    | Data 1   |
-| Row 2    | Data 2   |
+Colons alignment: `---` (left), `:---:` (center), `---:` (right).
+
+```markdown
+| Command | Description |
+| :--- | :--- |
+| `git status` | Checks file status |
+| `git push` | Uploads changes |
+```
