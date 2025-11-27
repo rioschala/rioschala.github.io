@@ -6,10 +6,11 @@ import expressiveCode from "astro-expressive-code";
 import icon from "astro-icon";
 import { defineConfig } from "astro/config";
 import { expressiveCodeOptions } from "./src/site.config";
+import rehypeUnwrapImages from 'rehype-unwrap-images';
 
 // Remark plugins
 import remarkDirective from "remark-directive";/* Handle ::: directives as nodes */
-import remarkUnwrapImages from "remark-unwrap-images";
+
 import { remarkAdmonitions } from "./src/utils/remark-admonitions";/* Add admonitions */
 import { remarkReadingTime } from "./src/utils/remark-reading-time";
 import remarkMath from "remark-math"; // <-- new
@@ -38,10 +39,10 @@ export default defineConfig({
                     target: "_blank",
                 },
             ],
-            rehypeKatex, // <-- add this so math is rendered as KaTeX
+            rehypeKatex,rehypeUnwrapImages,  // <-- add this so math is rendered as KaTeX
         ],
         remarkPlugins: [
-            remarkUnwrapImages,
+            
             remarkReadingTime,
             remarkDirective,
             remarkAdmonitions,
