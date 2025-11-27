@@ -27,7 +27,6 @@ Every Markdown (`.md`) or MDX (`.mdx`) file must begin with a Frontmatter block 
 
 **Optional Fields:**
 * `updatedDate`: (Date) When the post was last modified.
-* `heroImage`: (String) Path to the cover image (e.g., `/blog-placeholder-1.jpg`).
 * `tags`: (Array) A list of related topics.
 
 ### Example
@@ -37,9 +36,9 @@ title: "Getting Started with Systems Engineering"
 description: "An intro to the first semester curriculum."
 pubDate: "2023-11-27"
 updatedDate: "2023-11-28"
-heroImage: "/images/systems-eng.jpg"
 tags: ["engineering", "guide", "intro"]
 ---
+```
 
 ## 🧮 KaTeX (Mathematical Notation)
 
@@ -67,7 +66,7 @@ $$
 
 We use `remark-directive` to create callout boxes. Use the `:::` syntax followed by the type.
 
-**Available Types:** `note`, `tip`, `caution`, `danger`.
+**Available Types:** `note`, `tip`, `caution`, `warning`.
 
 ### Syntax Example
 
@@ -75,7 +74,8 @@ We use `remark-directive` to create callout boxes. Use the `:::` syntax followed
 :::tip[My Title]
 This is a helpful tip.
 :::
-
+```
+```text
 :::danger
 This is a warning message.
 :::
@@ -113,7 +113,6 @@ Use triple backticks to create code blocks. Always specify the language identifi
 ```javascript
 console.log('Hello world');
 ```
-```
 
 ### Advanced Features (Line Highlighting & Titles)
 *Depends on `rehype-pretty-code` or `shiki` configuration.*
@@ -123,7 +122,6 @@ console.log('Hello world');
 def main():
     print("This line is highlighted")
     return 0
-```
 ```
 
 ---
