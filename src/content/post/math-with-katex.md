@@ -2,7 +2,7 @@
 title: "Math with KaTeX"
 description: "A guide on how to use KaTeX for mathematical notation in this blog."
 publishDate: "2025-11-28"
-tags: ["math", "katex", "latex", "guide"]
+tags: ["Mathematics"]
 ---
 
 # Math with KaTeX

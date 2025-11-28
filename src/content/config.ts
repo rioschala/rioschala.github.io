@@ -1,9 +1,8 @@
 import { defineCollection, z } from "astro:content";
 
-function removeDupsAndLowerCase(array: string[]) {
+function removeDups(array: string[]) {
 	if (!array.length) return array;
-	const lowercaseItems = array.map((str) => str.toLowerCase());
-	const distinctItems = new Set(lowercaseItems);
+	const distinctItems = new Set(array);
 	return Array.from(distinctItems);
 }
 
@@ -34,7 +33,7 @@ const post = defineCollection({
     }
     return [];
   }, z.array(z.string()))
-  .transform(removeDupsAndLowerCase),
+  .transform(removeDups),
 			title: z.string().max(60),
 			updatedDate: z
 				.string()

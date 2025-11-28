@@ -41,7 +41,19 @@ content:
       # --- Organization ---
       - name: tags
         label: Tags
-        type: string
+        type: select
+        multiple: true
+        options:
+          - Blog
+          - Education
+          - Computer Science
+          - Programming
+          - Mathematics
+          - Technology
+          - Personal
+          - Books
+          - Linux
+          - Web Development
         default: []
 
       - name: draft

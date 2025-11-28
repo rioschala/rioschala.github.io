@@ -16,6 +16,25 @@ We use **pnpm** for package management. Below are the built-in commands for the 
 
 ---
 
+## 🛠️ Tools & Technologies
+
+This project leverages a modern stack of tools to provide a performant and developer-friendly experience.
+
+| Tool | Purpose |
+| :--- | :--- |
+| **[Astro](https://astro.build/)** | The web framework for building content-driven websites. |
+| **[Tailwind CSS](https://tailwindcss.com/)** | A utility-first CSS framework for styling. |
+| **[KaTeX](https://katex.org/)** | Fast math typesetting for the web. |
+| **[Satori](https://github.com/vercel/satori)** | Generates Open Graph images from HTML/CSS. |
+| **[Biome](https://biomejs.dev/)** | Fast formatter and linter for JavaScript/TypeScript. |
+| **[Pagefind](https://pagefind.app/)** | A fully static search library. |
+| **[Expressive Code](https://expressive-code.com/)** | A text marker for code blocks with syntax highlighting. |
+| **[MDX](https://mdxjs.com/)** | Markdown for the component era, allowing React components in Markdown. |
+| **[React](https://react.dev/)** | A JavaScript library for building user interfaces. |
+| **[Astro Icon](https://www.astroicon.dev/)** | A straightforward icon system for Astro. |
+
+---
+
 ## 📝 Frontmatter Requirements
 
 Every Markdown (`.md`) or MDX (`.mdx`) file must begin with a Frontmatter block enclosed by triple dashes `---`.
