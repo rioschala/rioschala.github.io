@@ -29,13 +29,13 @@ const meta = {
 const paginationProps = {
 	...(page.url.prev && {
 		prevUrl: {
-			text: `← Previous Posts`,
+			text: "← Previous Posts",
 			url: page.url.prev,
 		},
 	}),
 	...(page.url.next && {
 		nextUrl: {
-			text: `Next Posts →`,
+			text: "Next Posts →",
 			url: page.url.next,
 		},
 	}),
@@ -93,7 +93,11 @@ const paginationProps = {
 						))}
 					</ul>
 					<span class="mt-4 block sm:text-end">
-						<a aria-label="View all blog categories" class="sm:hover:text-accent" href="/tags/">
+						<a
+							aria-label="View all blog categories"
+							class="sm:hover:text-accent"
+							href="/tags/"
+						>
 							View all →
 						</a>
 					</span>

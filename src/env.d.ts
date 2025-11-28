@@ -15,3 +15,8 @@ interface ImportMetaEnv {
 interface ImportMeta {
 	readonly env: ImportMetaEnv;
 }
+
+declare module "*.ttf" {
+	const content: unknown;
+	export default content;
+}

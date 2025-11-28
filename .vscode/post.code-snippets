@@ -28,8 +28,8 @@
 			"draft: false",
 			"ogImage: \"/social-card.png\"",
 			"---",
-			"$2",
+			"$2"
 		],
-		"description": "Add frontmatter for new Markdown post",
-	},
+		"description": "Add frontmatter for new Markdown post"
+	}
 }

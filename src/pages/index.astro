@@ -11,12 +11,23 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS);
 
 <PageLayout meta={{ title: "Home" }}>
 	<section>
-		<h1 class="text-[1.5rem] leading-[2rem] font-semibold mb-6 rainbow-text">Hi, people!!</h1>
+		<h1
+			class="text-[1.5rem] leading-[2rem] font-semibold mb-6 rainbow-text"
+		>
+			Hi, people!!
+		</h1>
 		<p class="mb-4">
-			This blog is, and will continue to be, a place to share my <b><span class="rainbow-text " >discoveries, breakthroughs and thoughts </span> </b> about the learning process. Join me in exploring a new world of infinite possibilities when it comes to Computer Science and multiple topics regarding technology. 
+			This blog is, and will continue to be, a place to share my <b
+				><span class="rainbow-text"
+					>discoveries, breakthroughs and thoughts
+				</span>
+			</b> about the learning process. Join me in exploring a new world of
+			infinite possibilities when it comes to Computer Science and multiple
+			topics regarding technology.
 		</p>
 		<p>
-			Explore the different posts available. You can navigate using the tags or the embedded search panel.
+			Explore the different posts available. You can navigate using the
+			tags or the embedded search panel.
 		</p>
 		<SocialList />
 	</section>
@@ -31,5 +42,14 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS);
 				))
 			}
 		</ul>
+		<div class="mt-4 text-end">
+			<a
+				class="sm:hover:text-accent"
+				href="/posts/"
+				aria-label="View all posts"
+			>
+				View all posts →
+			</a>
+		</div>
 	</section>
 </PageLayout>

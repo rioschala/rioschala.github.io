@@ -13,7 +13,9 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
 	const uniqueTags = getUniqueTags(allPostsByDate);
 
 	return uniqueTags.flatMap((tag) => {
-		const filterPosts = allPostsByDate.filter((post) => post.data.tags.includes(tag));
+		const filterPosts = allPostsByDate.filter((post) =>
+			post.data.tags.includes(tag),
+		);
 		return paginate(filterPosts, {
 			pageSize: 10,
 			params: { tag },
@@ -36,13 +38,13 @@ const meta = {
 const paginationProps = {
 	...(page.url.prev && {
 		prevUrl: {
-			text: `← Previous Tags`,
+			text: "← Previous Tags",
 			url: page.url.prev,
 		},
 	}),
 	...(page.url.next && {
 		nextUrl: {
-			text: `Next Tags →`,
+			text: "Next Tags →",
 			url: page.url.next,
 		},
 	}),
