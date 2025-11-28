@@ -16,7 +16,8 @@ content:
 
     view:
       primary: title
-      fields: [title, publishDate]
+      fields: [title, publishDate, tags]
+      sort: [ publishDate, title]
     # This allows Pages CMS to see files inside subfolders (like /OOP/...)
 
     fields:
