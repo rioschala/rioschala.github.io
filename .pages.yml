@@ -42,18 +42,9 @@ content:
       - name: tags
         label: Tags
         type: select
-        multiple: true
         options:
-          - Blog
-          - Education
-          - Computer Science
-          - Programming
-          - Mathematics
-          - Technology
-          - Personal
-          - Books
-          - Linux
-          - Web Development
+          multiple: true
+          values: ["Blog", "Education", "Computer Science", "Programming", "Mathematics", "Technology", "Personal", "Books", "Linux", "Web Development"]
         default: []
 
       - name: draft
