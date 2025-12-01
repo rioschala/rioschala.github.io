@@ -50,7 +50,7 @@
 		"unist-util-visit": "^5.0.0"
 	},
 	"devDependencies": {
-		"@astrojs/check": "^0.9.5",
+		"@astrojs/check": "^0.9.6",
 		"@biomejs/biome": "^1.9.4",
 		"@iconify-json/mdi": "^1.2.3",
 		"@pagefind/default-ui": "^1.4.0",
