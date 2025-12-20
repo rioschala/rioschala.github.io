@@ -55,20 +55,106 @@ const { headings } = await post.render();
 </BaseLayout>
 
 <script>
-	const scrollBtn = document.getElementById("to-top-btn") as HTMLButtonElement;
-	const targetHeader = document.getElementById("blog-hero") as HTMLDivElement;
+    function setupPageFeatures() {
+        /** --- BACK TO TOP LOGIC --- **/
+        const scrollBtn = document.getElementById("to-top-btn") as HTMLButtonElement;
+        const targetHeader = document.getElementById("blog-hero") as HTMLDivElement;
 
-	function callback(entries: IntersectionObserverEntry[]) {
-		entries.forEach((entry) => {
-			// only show the scroll to top button when the heading is out of view
-			scrollBtn.dataset.show = (!entry.isIntersecting).toString();
-		});
-	}
+        if (scrollBtn && targetHeader) {
+            const callback = (entries: IntersectionObserverEntry[]) => {
+                entries.forEach((entry) => {
+                    scrollBtn.dataset.show = (!entry.isIntersecting).toString();
+                });
+            };
 
-	scrollBtn.addEventListener("click", () => {
-		document.documentElement.scrollTo({ behavior: "smooth", top: 0 });
-	});
+            scrollBtn.addEventListener("click", () => {
+                document.documentElement.scrollTo({ behavior: "smooth", top: 0 });
+            });
 
-	const observer = new IntersectionObserver(callback);
-	observer.observe(targetHeader);
+            const observer = new IntersectionObserver(callback);
+            observer.observe(targetHeader);
+        }
+
+        /** --- FOOTNOTE PREVIEW LOGIC --- **/
+        // Selects footnote links (handles both standard Markdown and MDX prefixes)
+        const footnoteLinks = document.querySelectorAll('a[href^="#fn-"], a[id^="user-content-fnref-"], a[data-footnote-ref]');
+
+        footnoteLinks.forEach((link) => {
+            const anchor = link as HTMLAnchorElement;
+            const id = decodeURIComponent(anchor.hash.substring(1));
+            const footnoteContent = document.getElementById(id);
+
+            if (footnoteContent) {
+                // Create the tooltip container
+                const tooltip = document.createElement("div");
+                // Tailwind classes for styling
+                tooltip.className = "footnote-tooltip hidden absolute z-50 max-w-sm p-3 bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-lg shadow-xl text-sm leading-normal opacity-0 transition-opacity duration-200 pointer-events-none";
+                
+                // Clone the footnote content and remove the "back to text" arrow
+                const contentClone = footnoteContent.cloneNode(true) as HTMLElement;
+                const backRef = contentClone.querySelector('.footnote-backref, [data-footnote-backref]');
+                if (backRef) backRef.remove();
+                
+                tooltip.innerHTML = contentClone.innerHTML;
+                document.body.appendChild(tooltip);
+
+                const showTooltip = () => {
+                    const rect = anchor.getBoundingClientRect();
+                    tooltip.classList.remove("hidden");
+                    
+                    // Positioning the tooltip above the number
+                    const tooltipWidth = tooltip.offsetWidth;
+                    const tooltipHeight = tooltip.offsetHeight;
+                    
+                    const left = rect.left + window.scrollX - (tooltipWidth / 2) + (rect.width / 2);
+                    const top = rect.top + window.scrollY - tooltipHeight - 12;
+
+                    tooltip.style.left = `${left}px`;
+                    tooltip.style.top = `${top}px`;
+                    
+                    // Simple fade in
+                    requestAnimationFrame(() => {
+                        tooltip.classList.add("opacity-100");
+                    });
+                };
+
+                const hideTooltip = () => {
+                    tooltip.classList.remove("opacity-100");
+                    // Wait for transition before hiding
+                    setTimeout(() => {
+                        if (tooltip.classList.contains("opacity-0")) {
+                            tooltip.classList.add("hidden");
+                        }
+                    }, 200);
+                };
+
+                anchor.addEventListener("mouseenter", showTooltip);
+                anchor.addEventListener("mouseleave", hideTooltip);
+            }
+        });
+    }
+
+    // Initialize on first load
+    setupPageFeatures();
+
+    // Re-initialize if using Astro View Transitions
+    document.addEventListener("astro:after-swap", setupPageFeatures);
 </script>
+
+<style is:global>
+    .footnote-tooltip {
+        @apply pointer-events-none absolute z-50 max-w-sm rounded-lg border border-zinc-300 bg-white p-3 shadow-xl transition-opacity duration-200 dark:border-zinc-600 dark:bg-zinc-800 text-sm leading-relaxed;
+    }
+
+    /* Small arrow pointing down */
+    .footnote-tooltip::after {
+        content: "";
+        @apply absolute top-full left-1/2 -ml-2 border-[8px] border-transparent border-t-white dark:border-t-zinc-800;
+    }
+    
+    /* Border for the arrow to match tooltip border */
+    .footnote-tooltip::before {
+        content: "";
+        @apply absolute top-full left-1/2 -ml-[9px] border-[9px] border-transparent border-t-zinc-300 dark:border-t-zinc-600;
+    }
+</style>
