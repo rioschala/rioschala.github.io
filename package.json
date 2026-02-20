@@ -60,7 +60,7 @@
 		"@types/hast": "^3.0.4",
 		"@types/mdast": "^4.0.4",
 		"autoprefixer": "^10.4.21",
-		"baseline-browser-mapping": "^2.9.11",
+		"baseline-browser-mapping": "^2.10.0",
 		"pagefind": "^1.4.0",
 		"prettier": "^3.6.2",
 		"prettier-plugin-astro": "0.14.1",
