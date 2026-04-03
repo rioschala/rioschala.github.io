@@ -1,0 +1,51 @@
+{
+  "file": "src/content/post/2025-11-28-final-test-pagescms.mdx",
+  "name": "post",
+  "fileType": "mdx",
+  "fmType": "yaml",
+  "template": [
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "string",
+      "value": "",
+      "isIgnored": false,
+      "isRequired": true,
+      "defaultValue": ""
+    },
+    {
+      "name": "description",
+      "label": "Description",
+      "type": "string",
+      "value": "",
+      "isIgnored": false,
+      "isRequired": true,
+      "defaultValue": ""
+    },
+    {
+      "name": "publishDate",
+      "label": "PublishDate",
+      "type": "string",
+      "value": "2026-04-03T18:55:40.740Z",
+      "isIgnored": false,
+      "defaultValue": ""
+    },
+    {
+      "name": "tags",
+      "label": "Tags",
+      "type": "Array",
+      "value": [],
+      "isIgnored": false,
+      "defaultValue": "",
+      "subType": "string"
+    },
+    {
+      "name": "draft",
+      "label": "Draft",
+      "type": "boolean",
+      "value": false,
+      "isIgnored": false,
+      "defaultValue": "false"
+    }
+  ]
+}
