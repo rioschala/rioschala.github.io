@@ -15,7 +15,7 @@ content:
     filename: "{year}-{month}-{day}-{primary}.mdx" 
 
     view:
-      primary: title
+      primary: publishDate
       fields: [title, publishDate, tags]
       sort: [ publishDate, title]
       
