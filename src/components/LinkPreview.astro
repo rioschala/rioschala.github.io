@@ -1,0 +1,77 @@
+---
+---
+<div id="dg-tooltip" class="pointer-events-none absolute z-50 hidden opacity-0 transition-opacity duration-200 ease-in-out w-80 p-4 rounded-xl border border-zinc-200 bg-white/95 shadow-xl backdrop-blur-md dark:border-zinc-700 dark:bg-zinc-900/95" style="top: -9999px; left: -9999px;">
+	<h3 id="dg-tooltip-title" class="font-semibold text-base text-zinc-900 dark:text-zinc-100 mb-2 leading-tight"></h3>
+	<p id="dg-tooltip-desc" class="text-sm text-zinc-600 dark:text-zinc-400 line-clamp-3"></p>
+    <div class="mt-2 text-xs text-accent font-medium mt-3">Click to read more &rarr;</div>
+</div>
+
+<script>
+	let previewData: Record<string, { title: string; description: string }> | null = null;
+    let tooltip: HTMLElement | null = null;
+    let titleEl: HTMLElement | null = null;
+    let descEl: HTMLElement | null = null;
+    let timeoutId: number;
+
+	async function loadPreviews() {
+		if (!previewData) {
+			try {
+				const res = await fetch('/api/previews.json');
+				previewData = await res.json();
+			} catch (e) {
+				console.error("Failed to load previews", e);
+			}
+		}
+	}
+
+	function setupPreviews() {
+		loadPreviews();
+		tooltip = document.getElementById('dg-tooltip');
+		titleEl = document.getElementById('dg-tooltip-title');
+		descEl = document.getElementById('dg-tooltip-desc');
+		
+		if (!tooltip || !titleEl || !descEl) return;
+
+		const links = document.querySelectorAll<HTMLAnchorElement>('a');
+
+		links.forEach(link => {
+			const href = link.getAttribute('href');
+			if (!href || (!href.includes('/posts/') && !href.includes('/cv/'))) return;
+            
+            let cleanHref = href.split('#')[0] || '';
+            if (!cleanHref.endsWith('/')) cleanHref += '/';
+
+			link.addEventListener('mouseenter', () => {
+				clearTimeout(timeoutId);
+				if (previewData && previewData[cleanHref]) {
+					const data = previewData[cleanHref];
+					if (!data) return;
+					titleEl!.textContent = data.title;
+					descEl!.textContent = data.description;
+					
+					const rect = link.getBoundingClientRect();
+                    // Keep tooltip within standard horizontal bounds
+					tooltip!.style.left = `${Math.min(Math.max(10, rect.left), window.innerWidth - 330)}px`;
+					tooltip!.style.top = `${rect.bottom + window.scrollY + 8}px`;
+					
+					tooltip!.classList.remove('hidden');
+					requestAnimationFrame(() => {
+						tooltip!.classList.remove('opacity-0');
+					});
+				}
+			});
+			
+			link.addEventListener('mouseleave', () => {
+				timeoutId = window.setTimeout(() => {
+					tooltip!.classList.add('opacity-0');
+					setTimeout(() => tooltip!.classList.add('hidden'), 200); // Wait for transition
+				}, 100); // Brief delay
+			});
+		});
+	}
+
+	// Initialize immediately for standard loads
+	setupPreviews();
+	// Initialize after view-transition swap
+	document.addEventListener("astro:after-swap", setupPreviews);
+</script>

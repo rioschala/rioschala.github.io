@@ -13,7 +13,8 @@
 		"format": "pnpm run format:code && pnpm run format:imports",
 		"format:code": "biome format . --write && prettier -w \"**/*\" \"!**/*.{md,mdx}\" --ignore-unknown --cache",
 		"format:imports": "biome check --formatter-enabled=false --write",
-		"check": "astro check"
+		"check": "astro check",
+		"link": "node scripts/autolink.mjs"
 	},
 	"dependencies": {
 		"@astrojs/mdx": "5.0.3",

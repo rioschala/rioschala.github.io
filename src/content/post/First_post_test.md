@@ -8,7 +8,7 @@ ogImage: "public/social-card.png"
 
 # This is the **title**
 
-Based on this test, I wanted to only use some basic structures from MD.
+Based on this test, I wanted to only use some basic structures from MD, such as [Admonitions](/posts/admonitios/).
 
 ## Subtitle
 

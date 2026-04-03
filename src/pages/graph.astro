@@ -1,0 +1,128 @@
+---
+import PageLayout from "@/layouts/Base.astro";
+
+const meta = {
+	description: "Interactive graph showing connections between posts in my digital garden.",
+	title: "Graph View",
+};
+---
+
+<PageLayout meta={meta}>
+	<div class="space-y-6">
+		<h1 class="title">Digital Garden Graph</h1>
+		<p class="text-zinc-600 dark:text-zinc-400">
+			This interactive graph shows how different posts and notes are connected. Drag nodes around, scroll to zoom, and click on any node to read the post.
+		</p>
+		
+		<div id="graph-container" class="w-full h-[600px] border border-zinc-200 dark:border-zinc-700 rounded-lg overflow-hidden bg-white dark:bg-zinc-900 cursor-move relative shadow-sm">
+            <div id="graph-loading" class="absolute inset-0 flex items-center justify-center bg-white/80 dark:bg-zinc-900/80 z-10 transition-opacity duration-300">
+                <span class="text-sm font-medium animate-pulse">Loading node data...</span>
+            </div>
+        </div>
+	</div>
+
+	<!-- force-graph handles the rendering of the canvas -->
+	<script is:inline src="https://unpkg.com/force-graph"></script>
+	<script>
+        function initGraph() {
+            const container = document.getElementById('graph-container');
+            const loader = document.getElementById('graph-loading');
+            
+            if (!container || !(window as any).ForceGraph) return;
+
+            // Define colors based on the current theme
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark' || document.documentElement.classList.contains('dark');
+            const nodeColor = isDark ? '#a78bfa' : '#6366f1';
+            const tagColor = isDark ? '#f472b6' : '#ec4899'; // Pink for tags
+            const nodeHoverColor = isDark ? '#c4b5fd' : '#4f46e5';
+            const linkColor = isDark ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.1)';
+            const textColor = isDark ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)';
+            const bgColor = isDark ? '#18181b' : '#ffffff';
+
+            // Clear previous canvas if re-initializing
+            container.innerHTML = '';
+            if (loader) {
+                loader.style.opacity = '1';
+                container.appendChild(loader);
+            }
+
+            const Graph = (window as any).ForceGraph()(container)
+                .backgroundColor(bgColor)
+                .nodeId('id')
+                .nodeVal((node: any) => node.group === 'tag' ? 2.5 : 1.5) // size (tags are larger)
+                .nodeLabel('name')
+                .nodeColor((node: any) => node.group === 'tag' ? tagColor : nodeColor)
+                .linkColor(() => linkColor)
+                .linkWidth(1.5)
+                .linkDirectionalParticles(2)
+                .linkDirectionalParticleSpeed(0.005)
+                .onNodeClick((node: any) => {
+                    if (node && node.url) {
+                        window.location.href = node.url;
+                    }
+                })
+                .onNodeHover((node: any) => {
+                    container.style.cursor = node ? 'pointer' : 'move';
+                });
+
+            // Use custom canvas node rendering for drawing labels below nodes
+            Graph.nodeCanvasObject((node: any, ctx: CanvasRenderingContext2D, globalScale: number) => {
+                const label = node.name;
+                const fontSize = 12 / globalScale;
+                const isTag = node.group === 'tag';
+                const radius = isTag ? 6 : 4;
+                
+                // Draw Node Circle
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, radius, 0, 2 * Math.PI, false);
+                ctx.fillStyle = node === (Graph as any).hoverNode() ? nodeHoverColor : (isTag ? tagColor : nodeColor);
+                ctx.fill();
+
+                // Draw Label
+                if (globalScale > 1.2 || isTag) { // Always draw tag labels, or draw all labels if zoomed in
+                    ctx.font = `${isTag ? 'bold ' : ''}${fontSize}px Sans-Serif`;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillStyle = textColor;
+                    ctx.fillText(label, node.x, node.y + radius + 2 + fontSize);
+                }
+            });
+
+            // Store hover state to update node color
+            let hoverNode: any = null;
+            Graph.onNodeHover((node: any) => {
+                hoverNode = node;
+                container.style.cursor = node ? 'pointer' : 'move';
+            });
+            // Hack to expose hoverNode to the canvas renderer
+            (Graph as any).hoverNode = () => hoverNode;
+
+            // Fetch Data
+            fetch('/api/graph.json')
+                .then(res => res.json())
+                .then(data => {
+                    Graph.graphData(data);
+                    if (loader) loader.style.opacity = '0';
+                    setTimeout(() => loader?.remove(), 300);
+                })
+                .catch((err: any) => {
+                    console.error("Failed to load graph data", err);
+                    if (loader) loader.innerHTML = "<span class='text-red-500'>Failed to load data.</span>";
+                });
+                
+            // Resize graph when window is resized
+            const ro = new ResizeObserver(entries => {
+                const rect = entries[0]?.contentRect;
+                if (rect && Graph.width && Graph.height) {
+                    Graph.width(rect.width).height(rect.height);
+                }
+            });
+            ro.observe(container);
+        }
+
+        // Initialize immediately
+        initGraph();
+        // Re-initialize on View Transition swap (Astro Cactus support)
+        document.addEventListener("astro:after-swap", initGraph);
+	</script>
+</PageLayout>

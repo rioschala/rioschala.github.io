@@ -8,6 +8,8 @@ import Footer from "@/components/layout/Footer.astro";
 import Header from "@/components/layout/Header.astro";
 import { siteConfig } from "@/site-config";
 
+import LinkPreview from "@/components/LinkPreview.astro";
+
 interface Props {
 	meta: SiteMeta;
 }
@@ -29,5 +31,6 @@ const {
 			<slot />
 		</main>
 		<Footer />
+		<LinkPreview />
 	</body>
 </html>
