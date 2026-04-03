@@ -2,6 +2,7 @@
 import type { HTMLTag, Polymorphic } from "astro/types";
 import type { CollectionEntry } from "astro:content";
 
+import { render } from "astro:content";
 import FormattedDate from "../FormattedDate.astro";
 
 type Props<Tag extends HTMLTag> = Polymorphic<{ as: Tag }> & {
@@ -11,9 +12,13 @@ type Props<Tag extends HTMLTag> = Polymorphic<{ as: Tag }> & {
 
 const { as: Tag = "div", post, withDesc = false } = Astro.props;
 const postDate = post.data.updatedDate ?? post.data.publishDate;
+const { remarkPluginFrontmatter } = await render(post);
 ---
 
-<FormattedDate class="min-w-[120px] text-gray-600 dark:text-gray-400" date={postDate} />
+<div class="flex flex-col sm:flex-row gap-2 sm:gap-x-4 items-start sm:items-center min-w-[120px]">
+	<FormattedDate class="text-gray-600 dark:text-gray-400" date={postDate} />
+	<span class="text-sm text-gray-500 min-w-16">/ {remarkPluginFrontmatter.minutesRead}</span>
+</div>
 <Tag>
 	{post.data.draft && <span class="text-red-500">(Draft) </span>}
 	<a class="cactus-link" data-astro-prefetch href={`/posts/${post.id}/`}>

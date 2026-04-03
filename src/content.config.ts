@@ -1,4 +1,5 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection } from "astro:content";
+import { z } from "astro/zod";
 import { glob } from 'astro/loaders';
 
 /** * Helper to remove duplicate strings from the tags array 
@@ -26,6 +27,7 @@ const post = defineCollection({
                 .optional(),
             description: z.string().min(20).max(160),
             draft: z.boolean().default(false),
+            featured: z.boolean().default(false),
             ogImage: z.string().optional(),
             publishDate: z
                 .string()

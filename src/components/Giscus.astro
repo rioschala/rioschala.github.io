@@ -1,0 +1,56 @@
+---
+// Giscus comments integration
+// Make sure to double check repository strings inside the script.
+---
+
+<div class="giscus mt-10"></div>
+
+<script is:inline>
+  function loadGiscus() {
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'transparent_dark' : 'light';
+    const script = document.createElement('script');
+    
+    script.src = "https://giscus.app/client.js";
+    script.setAttribute('data-repo', 'rioschala/rioschala.github.io');
+    script.setAttribute('data-repo-id', 'R_kgDOMN0L_A'); // Leave correct repo id or just rely on data-repo resolution
+    script.setAttribute('data-category', 'General');
+    script.setAttribute('data-category-id', ''); // Add category ID if desired
+    script.setAttribute('data-mapping', 'pathname');
+    script.setAttribute('data-strict', '0');
+    script.setAttribute('data-reactions-enabled', '1');
+    script.setAttribute('data-emit-metadata', '0');
+    script.setAttribute('data-input-position', 'bottom');
+    script.setAttribute('data-theme', theme);
+    script.setAttribute('data-lang', 'en');
+    script.setAttribute('data-loading', 'lazy');
+    script.crossOrigin = 'anonymous';
+    script.async = true;
+
+    // Clear existing to avoid duplicates in SPA layout
+    const container = document.querySelector('.giscus');
+    if (container) {
+      container.innerHTML = '';
+      container.appendChild(script);
+    }
+  }
+
+  // Load once immediately
+  loadGiscus();
+
+  // Listen to theme toggle changes to update giscus dynamically
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.attributeName === 'data-theme') {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'transparent_dark' : 'light';
+        iframe.contentWindow.postMessage(
+          { giscus: { setConfig: { theme } } },
+          'https://giscus.app'
+        );
+      }
+    });
+  });
+
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+</script>
