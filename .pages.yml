@@ -15,9 +15,12 @@ content:
     filename: "{year}-{month}-{day}-{primary}.mdx" 
 
     view:
-      primary: publishDate
-      fields: [title, publishDate, tags]
-      sort: [ publishDate, title]
+      fields: [title, published, date]
+      primary: title
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
       
     # This allows Pages CMS to see files inside subfolders (like /OOP/...)
     subfolders: true
