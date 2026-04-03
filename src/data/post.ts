@@ -3,9 +3,10 @@ import { getCollection } from "astro:content";
 
 /** Note: this function filters out draft posts based on the environment */
 export async function getAllPosts() {
-	return await getCollection("post", ({ data }) => {
-		return import.meta.env.PROD ? data.draft !== true : true;
-	});
+  return await getCollection("post", ({ data }) => {
+    // Only return posts that aren't drafts (if you use a draft flag)
+    return import.meta.env.PROD ? data.draft !== true : true;
+  });
 }
 
 export function sortMDByDate(posts: Array<CollectionEntry<"post">>) {

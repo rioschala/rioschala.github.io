@@ -11,7 +11,7 @@ import { getFormattedDate } from "@/utils";
 export const getStaticPaths: GetStaticPaths = async () => {
 	const posts = await getCollection("post");
 	return posts.map((post) => ({
-		params: { slug: post.slug },
+		params: { slug: post.id },
 		props: { post },
 	}));
 };

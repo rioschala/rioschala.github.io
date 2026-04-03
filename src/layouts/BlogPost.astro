@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
-
+import { render } from "astro:content"; 
 import BlogHero from "@/components/blog/Hero.astro";
 import TOC from "@/components/blog/TOC.astro";
 
@@ -9,17 +9,21 @@ import BaseLayout from "./Base.astro";
 import 'katex/dist/katex.min.css';
 
 interface Props {
-	post: CollectionEntry<"post">;
+    post: CollectionEntry<"post">;
 }
 
 const { post } = Astro.props;
 const {
-	data: { description, ogImage, publishDate, title, updatedDate },
-	slug,
+    data: { description, ogImage, publishDate, title, updatedDate },
+    id, // In Astro 6, use 'id' instead of 'slug'
 } = post;
-const socialImage = ogImage ?? `/og-image/${slug}.png`;
+
+// Update socialImage to use id
+const socialImage = ogImage ?? `/og-image/${id}.png`;
 const articleDate = updatedDate?.toISOString() ?? publishDate.toISOString();
-const { headings } = await post.render();
+
+// FIX: Use the standalone render function
+const { headings } = await render(post);
 ---
 
 <BaseLayout meta={{ articleDate, description, ogImage: socialImage, title }}>

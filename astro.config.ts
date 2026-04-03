@@ -70,7 +70,6 @@ export default defineConfig({
             rollupOptions: {
                 output: {
                     manualChunks: {
-                        'tldraw-chunk': ['tldraw']
                     }
                 }
             },

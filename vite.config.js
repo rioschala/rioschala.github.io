@@ -4,7 +4,7 @@ export default {
       rollupOptions: {
         output: {
           manualChunks: {
-            'tldraw-chunk': ['tldraw']
+           
           }
         }
       },
