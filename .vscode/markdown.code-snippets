@@ -1,0 +1,142 @@
+{
+  "Astro Content Frontmatter": {
+    "prefix": "frontmatter",
+    "body": [
+      "---",
+      "title: $1",
+      "description: '$2'",
+      "publishDate: $CURRENT_DATE $CURRENT_MONTH_NAME_SHORT $CURRENT_YEAR",
+      "tags: [$3]",
+      "draft: false",
+      "---",
+      "",
+      "$0"
+    ],
+    "description": "Scaffold the basic frontmatter for Astro Cactus blog posts."
+  },
+  "Astro Tabs Component": {
+    "prefix": "tabs",
+    "body": [
+      "import { Tabs, TabItem } from '@astrojs/starlight/components';",
+      "",
+      "<Tabs>",
+      "  <TabItem label=\"$1\" icon=\"$2\">",
+      "    $3",
+      "  </TabItem>",
+      "  <TabItem label=\"$4\">",
+      "    $5",
+      "  </TabItem>",
+      "</Tabs>",
+      "$0"
+    ],
+    "description": "Insert a Tabs codeblock from starlight."
+  },
+  "Admonition Tip": {
+    "prefix": "tip",
+    "body": [
+      ":::tip",
+      "$1",
+      ":::",
+      ""
+    ],
+    "description": "Add a Tip admonition."
+  },
+  "Admonition Note": {
+    "prefix": "note",
+    "body": [
+      ":::note",
+      "$1",
+      ":::",
+      ""
+    ],
+    "description": "Add a Note admonition."
+  },
+  "Admonition Important": {
+    "prefix": "important",
+    "body": [
+      ":::important",
+      "$1",
+      ":::",
+      ""
+    ],
+    "description": "Add an Important admonition."
+  },
+  "Admonition Warning": {
+    "prefix": "warning",
+    "body": [
+      ":::warning",
+      "$1",
+      ":::",
+      ""
+    ],
+    "description": "Add a Warning admonition."
+  },
+  "Admonition Caution": {
+    "prefix": "caution",
+    "body": [
+      ":::caution",
+      "$1",
+      ":::",
+      ""
+    ],
+    "description": "Add a Caution admonition."
+  },
+  "KaTeX Block": {
+    "prefix": "katex",
+    "body": [
+      "$$",
+      "$1",
+      "$$",
+      "$0"
+    ],
+    "description": "Add a KaTeX math block."
+  },
+  "KaTeX Inline": {
+    "prefix": "ikatex",
+    "body": [
+      "$$1$$0"
+    ],
+    "description": "Add inline KaTeX math."
+  },
+  "Centered HTML Image": {
+    "prefix": "cimage",
+    "body": [
+      "<center>",
+      "  <img src=\"$1\" alt=\"$2\" width=\"${3:50%}\" height=\"${4:50%}\"/>",
+      "</center>",
+      "$0"
+    ],
+    "description": "Add a centered image using HTML tags."
+  },
+  "Python Code Block": {
+    "prefix": "pycode",
+    "body": [
+      "```python title=\"$1\" wrap",
+      "$2",
+      "```",
+      "$0"
+    ],
+    "description": "Add a Python code block with Astro Expressive Code title."
+  },
+  "Footnote Link": {
+    "prefix": "fn",
+    "body": [
+      "[^${1:1}]$0"
+    ],
+    "description": "Add a footnote reference link inline."
+  },
+  "Footnote Definition": {
+    "prefix": "fndef",
+    "body": [
+      "[^${1:1}]: $0"
+    ],
+    "description": "Add a footnote definition at the bottom of the document."
+  },
+  "URL Link": {
+    "prefix": "link",
+    "body": [
+      "[$1]($2)$0"
+    ],
+    "description": "Add a Markdown URL link."
+  }
+}

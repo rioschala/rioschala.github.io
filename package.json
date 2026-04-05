@@ -14,7 +14,8 @@
 		"format:code": "biome format . --write && prettier -w \"**/*\" \"!**/*.{md,mdx}\" --ignore-unknown --cache",
 		"format:imports": "biome check --formatter-enabled=false --write",
 		"check": "astro check",
-		"link": "node scripts/autolink.mjs"
+		"link": "node scripts/autolink.mjs",
+		"newpost": "node scripts/new-post.mjs"
 	},
 	"dependencies": {
 		"@astrojs/mdx": "5.0.3",
