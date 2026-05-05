@@ -1,0 +1,293 @@
+---
+title: EV3 Controllers (joysticks) 2026
+description: 'This is a guide on how to control the Lego EV3 Mindstorms using a series of controllers or joysticks'
+publishDate: 04 May 2026
+tags: ["Education", "Programming"]
+draft: false
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+This guide is an educational resource so to speak that simplifies the process of controlling a Lego EV3 Mindstorms robot using different controllers or joysticks. This guide is a never-ending process that will continue to grow as more controllers are tested and sucessfully connected into the Lego Controller. 
+
+#  **Xbox One / Series S / Series X controllers**
+
+:::tip
+Make sure you do not ignore any requirement or step as it can be tricky to connect the remote controller for the first time
+:::
+
+
+## Requirements
+1. Micro SD Category A1 8GB - 16GB with EV3DEV mounted  ([see tutorial](#installing-ev3dev))
+2. Lego EV3 Mindstorms brain with the SD card inserted. 
+3. VSCode that you can install from [here](https://code.visualstudio.com/download)
+4. Install the LEGO Mindstorms Extension onto VSCode from this [website](https://marketplace.visualstudio.com/items?itemName=lego-education.ev3-micropython)
+5. USB cable to connect the EV3 into the PC
+6. A Xbox controller with a firmware version prior to **5.23.6.0**
+
+:::warning
+**MAKE SURE THE FIRMWARE OF THE CONTROLLER IS NOT 5.23.6.0 AS IT BREAKS THE BLUETOOTH CONNECTION due to a change on the  protocol that sets BLE as default. This renders the LEGO EV3 discovery process impossible.**
+:::
+ 
+## Set-up
+
+For ensuring a correct process, make sure you can plug and unplug your EV3 as many times as needed. Also make sure that the PC port in the device is functional. This tutorial only covers connection using that port. 
+
+1. Create a SSH session in the computer using VSCODE EV3DEV device browser that can be found on the explorer Tab at the very botton. For doing this, you need to first connect the EV3 to the PC and then create the connection. Once there is a green light by the name of the device, right-click it and select create SSH connection. 
+
+<center>
+  <img src="https://pybricks.com/install/mindstorms-ev3/beyond-micropython/terminal_label.png" alt="" width="50%" height="50%"/>
+</center>
+
+2. Now, we need to disable one bluetooth device option on the EV3 to ensure the controller can be read. To do so, on the terminal you can write the following command (consider that the password for SUDO commands is **maker**):
+```bash title="SSH"
+sudo nano /etc/sysfs.conf
+```
+Navigate until the end of the document and add:
+```text
+module/bluetooth/parameters/disable_ertm = 1
+```
+Press Control and O at the same time, then press Enter to save. Then press Control and X to exit the editor and run the following command.
+```bash title="SSH"
+sudo /etc/init.d/sysfsutils restart
+```
+If there is an error saying that sysfsutils does not exits, then you need to install the correct dependencies. To do so, follow [these instructions](#installing-sysfsutils).
+
+Alternatively, you can run the following commands to create a file that changes that option everytime the EV3 boots. 
+
+```bash title="SSH"
+sudo nano /etc/rc.local
+```
+
+Then, replace the information on that file with:
+```text
+#!/bin/sh -e
+
+# Disable ERTM for Xbox Controllers
+echo 1 > /sys/module/bluetooth/parameters/disable_ertm
+
+exit 0
+```
+:::tip
+ To save the file in nano you need to press Ctrl + O (Write Out), then Enter and finally press Ctrl + X (Exit).
+:::
+
+After that, run these commands to make the file executable and reboot the device:
+
+```bash title="SSH"
+sudo chmod +x /etc/rc.local
+sudo reboot
+```
+3. Make sure that the ERTM module has been disable by running this command and getting a **Y** or **1** as output. 
+
+```bash title="SSH"
+cat /sys/module/bluetooth/parameters/disable_ertm
+```
+
+4. Once done, you can proceed to connect the Xbox Controller by running the following commands one by one:
+```bash title="SSH"
+bluetoothctl
+power on
+agent on
+scan on
+```
+5. Watch the terminal for a line that looks like [NEW] Device XX:XX:XX:XX:XX:XX Xbox Wireless Controller.
+6. When found, connect to it by running the following commands. Again, one by one. **Replace the xx:xx:xx with the MAC address of the controller**:
+```bash title="SSH"
+pair XX:XX:XX:XX:XX:XX
+trust XX:XX:XX:XX:XX:XX
+connect XX:XX:XX:XX:XX:XX
+```
+
+7. Let's now verify that the linux subsystem in the EV3 has correclty identified and has created the device for communication by running the next command:
+```bash title="SSH"
+ls /dev/input
+```
+This should get a list of devices similar to this:
+```bash title="SSH"
+robot@ev3dev:~$ ls /dev/input
+by-path  event0  event1  event2
+```
+8. Now, you are ready to start creating programs using the controller. However, we need to know what events are being sent to the device by the device. To do so, upload the following code to the EV3:
+```python title="monitor.py" wrap
+#!/usr/bin/env python3
+import evdev
+import sys
+
+# 1. Find the Xbox Controller
+def find_controller():
+    devices = [evdev.InputDevice(path) for path in evdev.list_devices()]
+    for device in devices:
+        if "Xbox" in device.name:
+            return device
+    return None
+
+controller = find_controller()
+
+if not controller:
+    print("Error: Xbox controller not found.")
+    sys.exit(1)
+
+print("Monitoring: {}".format(controller.name))
+print("Press Ctrl+C to stop.\n")
+
+EVENT_TYPES = {
+    evdev.ecodes.EV_KEY: "KEY/BTN",
+    evdev.ecodes.EV_ABS: "ABS/STICK"
+}
+
+# 2. Event Monitoring Loop
+try:
+    for event in controller.read_loop():
+        if event.type in EVENT_TYPES:
+            
+            try:
+                # Get the name(s) for the code
+                code_lookup = evdev.ecodes.bytype[event.type][event.code]
+                
+                # If it's a list, just take the first string
+                if isinstance(code_lookup, list):
+                    code_name = code_lookup[0]
+                else:
+                    code_name = code_lookup
+            except KeyError:
+                code_name = "UNKNOWN_{}".format(event.code)
+
+            type_label = EVENT_TYPES.get(event.type, "OTHER")
+            
+            # Now code_name is definitely a string, so formatting will work
+            print("Type: {:<10} | Code: {:<15} | Value: {}".format(
+                type_label, 
+                code_name, 
+                event.value
+            ))
+
+except KeyboardInterrupt:
+    print("\nExiting monitor.")
+    sys.exit(0)
+```
+The previous code shows on the terminal the events that the xbox controller sends to the EV3. Be aware that each brand or type of controller sends a different set of events. This causes that the monitor needs to run before we code any program. 
+
+To create proyects on the device follow these commands:
+```bash title="SSH"
+nano monitor.py
+```
+Then replace the contents of the monitor.py file with the source code. After that, make sure the file is executable by running this command: 
+```bash title="SSH"
+chmod +x monitor.py
+```
+and after that, run the code.
+```bash title="SSH"
+sudo ./monitor.py
+```
+
+:::caution
+To close any program running and stop the code, run this command
+```bash title="SSH"
+sudo pkill -9 -f python3
+```
+:::
+9. Create a basic two-wheel car and uplod this code to control it with the remote controller:
+```python title="drive.py" wrap
+#!/usr/bin/env python3
+import evdev
+from ev3dev2.motor import LargeMotor, OUTPUT_B, OUTPUT_C, MoveTank
+import signal
+import sys
+
+# 1. Setup
+# We still use MoveTank as it provides a convenient way to set both powers at once
+motors = MoveTank(OUTPUT_B, OUTPUT_C)
+devices = [evdev.InputDevice(path) for path in evdev.list_devices()]
+controller = next((d for d in devices if "Xbox" in d.name), None)
+
+if not controller:
+    sys.exit("Controller not found. Re-pair and try again.")
+
+# 2. Calibration for 16-bit Unsigned (0-65535)
+CENTER = 32768
+SCALE = 327.68
+DEADZONE = 2000 
+
+def stop_robot(sig, frame):
+    print("\nEmergency Stop Triggered.")
+    motors.off()
+    sys.exit(0)
+
+signal.signal(signal.SIGINT, stop_robot)
+
+# State variables
+forward_value = 0  # V
+turn_value = 0     # Omega
+
+print("Arcade Drive Mode: Left Stick (Gas), Right Stick (Steering)")
+
+# 3. Main Loop
+try:
+    for event in controller.read_loop():
+        if event.type == evdev.ecodes.EV_ABS:
+            
+            # THROTTLE: Left Stick Y-axis (ABS_Y)
+            if event.code == evdev.ecodes.ABS_Y:
+                if abs(event.value - CENTER) > DEADZONE:
+                    # Negative because Up on the stick is 0, Down is 65535
+                    forward_value = -(event.value - CENTER) / SCALE
+                else:
+                    forward_value = 0
+            
+            # STEERING: Right Stick X-axis (ABS_RX)
+            elif event.code == evdev.ecodes.ABS_RX:
+                if abs(event.value - CENTER) > DEADZONE:
+                    # Positive because Right is higher value, Left is lower
+                    turn_value = (event.value - CENTER) / SCALE
+                else:
+                    turn_value = 0
+
+            # 4. Mixing Logic
+            # Pushing Right stick Right (positive turn_value) 
+            # should speed up Left motor and slow down Right motor
+            left_power = forward_value + turn_value
+            right_power = forward_value - turn_value
+
+            # 5. Safety Clamping
+            # We must ensure we don't send values outside -100 to 100
+            final_left = max(min(left_power, 100), -100)
+            final_right = max(min(right_power, 100), -100)
+
+            motors.on(final_left, final_right)
+
+except Exception as e:
+    print("Runtime Error: {}".format(e))
+    motors.off()
+```
+## Evidence
+<center>
+<video width="320" height="240" autoplay loop muted style="pointer-events: none;">
+  <source src="https://pub-18229f9d31f241a4b80d8d8a9c50ec52.r2.dev/ev3controller/Evidence.MP4" type="video/mp4">
+  </source>
+</video>
+</center>
+
+
+
+## Installing EV3DEV
+
+1. Download EV3DEV image from [here](https://www.ev3dev.org/docs/getting-started/).
+2. Download and execute [BalenaEtcher](https://etcher.balena.io). **Be aware that this requires admin permissions to run**
+3. Unzip the ISO image and flash it into the MicroSD card.
+
+## Installing sysfsutils
+
+The next commands will create a folder in your computer, then visit it. After that, download the dependencies on your local storage. After that, we need to copy the files onto the EV3 and run the instalation. Once installed, you can erase the dependencies from both your computer and the EV3. 
+```bash title="Terminal"
+mkdir ~/ev3_pkgs && cd ~/ev3_pkgs
+curl -LO http://archive.debian.org/debian/pool/main/s/sysfsutils/libsysfs2_2.1.0-5_armel.deb
+curl -LO http://archive.debian.org/debian/pool/main/s/sysfsutils/sysfsutils_2.1.0-5_armel.deb
+scp *.deb robot@ev3dev.local:/home/robot/
+```
+Open an SSH connection to the EV3 and run the following
+```bash title="SSH"
+sudo dpkg -i libsysfs2_2.1.0-5_armel.deb
+sudo dpkg -i sysfsutils_2.1.0-5_armel.deb
+rm *.deb
+```
+Once done, you can return to [step 2](#set-up) . 
