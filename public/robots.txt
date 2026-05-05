@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://sergiorios.lat/sitemap-0.xml
+Sitemap: https://rioschala.github.io/sitemap-0.xml
