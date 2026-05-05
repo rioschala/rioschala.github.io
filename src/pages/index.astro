@@ -10,7 +10,6 @@ const allPostsByDate = sortMDByDate(allPosts);
 const featuredPosts = allPostsByDate.filter((p) => p.data.featured);
 const recentPosts = allPostsByDate.filter((p) => !p.data.featured).slice(0, MAX_POSTS);
 ---
-<meta name="google-site-verification" content="uJ-jRjxt4oEP3NMczuG7Qy13BPvGjRpnTqDZvNICwf4" />
 <PageLayout meta={{ title: "Home" }}>
 	<section>
 		<h1
