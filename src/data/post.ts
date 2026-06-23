@@ -89,7 +89,7 @@ export async function getGraphData() {
 		nodes.push({
 			id: tagId,
 			name: `#${tag}`,
-			url: `/tags/${tag.toLowerCase()}/`,
+			url: `/tags/${tag}/`,
 			group: 'tag'
 		});
 	});
