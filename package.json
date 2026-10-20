@@ -18,16 +18,16 @@
 		"newpost": "node scripts/new-post.mjs"
 	},
 	"dependencies": {
-		"@astrojs/markdown-remark": "^7.2.0",
-		"@astrojs/mdx": "7.0.0",
-		"@astrojs/react": "^6.0.0",
-		"@astrojs/rss": "4.0.18",
-		"@astrojs/sitemap": "3.7.3",
-		"@astrojs/starlight": "^0.40.0",
+		"@astrojs/markdown-remark": "7.3.3",
+		"@astrojs/mdx": "8.1.0",
+		"@astrojs/react": "7.1.0",
+		"@astrojs/rss": "4.0.19",
+		"@astrojs/sitemap": "3.7.4",
+		"@astrojs/starlight": "0.42.6",
 		"@astrojs/tailwind": "6.0.2",
 		"@types/react": "^18.3.28",
 		"@types/react-dom": "^18.3.7",
-		"astro": "7.0.2",
+		"astro": "7.4.1",
 		"astro-expressive-code": "^0.43.1",
 		"astro-icon": "^1.1.5",
 		"astro-robots-txt": "^1.0.0",
@@ -54,7 +54,7 @@
 		"unist-util-visit": "^5.1.0"
 	},
 	"devDependencies": {
-		"@astrojs/check": "^0.9.9",
+		"@astrojs/check": "0.9.11",
 		"@biomejs/biome": "^1.9.4",
 		"@iconify-json/mdi": "^1.2.3",
 		"@pagefind/default-ui": "^1.4.0",
@@ -72,6 +72,5 @@
 		"remark-unwrap-images": "^4.0.1",
 		"tailwindcss": "^3.4.19",
 		"typescript": "^5.9.3"
-	},
-	"packageManager": "pnpm@9.7.1+sha512.faf344af2d6ca65c4c5c8c2224ea77a81a5e8859cbc4e06b1511ddce2f0151512431dd19e6aff31f2c6a8f5f2aced9bd2273e1fed7dd4de1868984059d2c4247"
+	}
 }
