@@ -54,7 +54,7 @@ function h(el: string, attrs: Properties = {}, children: any[] = []): P {
 	const { properties, tagName } = _h(el, attrs);
 	return {
 		children,
-		data: { hName: tagName, hProperties: properties },
+		data: { hName: tagName, hProperties: properties } as Record<string, unknown>,
 		type: "paragraph",
 	};
 }
